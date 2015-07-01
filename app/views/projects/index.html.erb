@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h1>All Projects for <%= @organization.name -%></h1>
+    </div>
+    <div class="col-md-4">
+      <%= link_to 'New Project', new_project_without_org_path, class: 'btn btn-primary pull-right', style: 'margin-top: 21px' -%>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Id</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <%- @organization.owned_projects.each_with_index do |project, index| -%>
+        <tr>
+          <td><%= index + 1 -%></td>
+          <td><%= project.name.titlecase -%></td>
+          <td><%= project.identifier -%></td>
+          <td><%= project.start_date.strftime('%D') -%></td>
+          <td><%= project.end_date.strftime('%D') -%></td>
+          <td>
+            <div class="btn-group pull-right">
+              <%= link_to 'Show', organization_project_path(@organization, project), class: 'btn btn-default' -%>
+              <%= link_to 'Edit', edit_organization_project_path(@organization, project), class: 'btn btn-warning' -%>
+              <%= link_to 'Remove', organization_project_path(@organization, project), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' -%>
+            </div>
+          </td>
+        </tr>
+      <%- end -%>
+      <%- if @organization.projects.empty? -%>
+        <tr>
+          <td colspan="4" class="text-center">None</td>
+        </tr>
+      <%- end -%>
+      </tbody>
+    </table>
+  </div>
+</div>

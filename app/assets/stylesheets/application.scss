@@ -1,0 +1,47 @@
+//@import "bootstrap.min";
+//Import bootstrap-sprockets
+@import "bootstrap-sprockets";
+
+// Import cerulean variables
+@import "bootswatch/paper/variables";
+
+// Then bootstrap itself
+@import "bootstrap";
+
+// Bootstrap body padding for fixed navbar
+body { padding-top: 60px; }
+
+// And finally bootswatch style itself
+@import "bootswatch/paper/bootswatch";
+@import "dashboard";
+@import "invoices";
+
+.top-5 {margin-top: 5px !important}
+.top-10 {margin-top: 10px}
+.top-20 {margin-top: 20px}
+.top-30 {margin-top: 30px}
+.top-40 {margin-top: 40px}
+.top-50 {margin-top: 50px}
+.top-60 {margin-top: 60px}
+.top-100 {margin-top: 100px}
+
+.bottom-5 {margin-bottom: 5px !important}
+.bottom-10 {margin-bottom: 10px}
+.bottom-20 {margin-bottom: 20px}
+.bottom-30 {margin-bottom: 30px}
+.bottom-40 {margin-bottom: 40px}
+.bottom-50 {margin-bottom: 50px}
+.bottom-60 {margin-bottom: 60px}
+.bottom-100 {margin-bottom: 100px}
+
+table, .table {
+  font-size: 16px !important;
+}
+
+//table > thead, .table > thead {
+//  border-bottom: 3px solid #4E5D6C;
+//}
+
+.state-field {
+  width: 60px;
+}

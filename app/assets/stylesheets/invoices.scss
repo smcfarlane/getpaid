@@ -1,0 +1,35 @@
+// Place all the styles related to the Invoices controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.invoice {
+  background-color: #D4D7DB;
+  border-radius: 3px;
+  color: #171819;
+  line-height: 1;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
+  position: relative;
+  .col-md-12 {
+    p {
+      margin: 0;
+    }
+    .names {
+      font-weight: bold;
+    }
+    td:first-of-type {
+      padding-right: 10px;
+    }
+    td {
+      padding-bottom: 10px;
+    }
+    .stay-on-bottom {
+      position: absolute;
+      bottom: 0;
+      right: 15px;
+    }
+    .divider {
+      border-bottom: 2px solid #171819;
+    }
+  }
+}
+

@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <h1>Invoices</h1>
+  </div>
+  <div class="row">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Project</th>
+        <th>Project Id</th>
+        <th>Invoice Id</th>
+        <th>Date</th>
+        <th>Due Date</th>
+        <th>Total Amount</th>
+      </tr>
+      </thead>
+      <tbody>
+      <%- @invoices.each do |invoice| -%>
+        <tr>
+          <td><%= invoice.project.name -%></td>
+          <td><%= invoice.project.identifier -%></td>
+          <td><%= invoice.identifier -%></td>
+          <td><%= invoice.date.strftime('%D') -%></td>
+          <td><%= invoice.due_date.strftime('%D') -%></td>
+          <td><%= number_to_currency(invoice.line_items.sum(:amount)) -%></td>
+          <td>
+            <div class="btn-group pull-right">
+              <%= link_to 'Show', invoice_path(invoice), class: 'btn btn-default btn-xs' -%>
+              <%= link_to 'Edit', edit_invoice_path(invoice), class: 'btn btn-warning btn-xs' -%>
+              <%= link_to 'Remove', invoice_path(invoice), method: :delete, data: {confirm: 'Are you sure'}, class: 'btn btn-danger btn-xs' -%>
+            </div>
+          </td>
+        </tr>
+      <%- end -%>
+      </tbody>
+    </table>
+  </div>
+</div>

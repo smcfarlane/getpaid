@@ -1,0 +1,130 @@
+<%= form_for @invoice do |f| -%>
+  <div class="row">
+    <fieldset class="col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <%- if @invoice.id -%>
+            <h4>Client and Project</h4>
+          <%- else -%>
+            <h4>Select Client and Project</h4>
+          <%- end -%>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <%- if @invoice.id -%>
+              <%= select_tag 'invoice[to_org_id]', options_for_select([[@invoice.to_org.name, @invoice.to_org.id]], @invoice.to_org.id), class: 'client_id' -%>
+            <%- else -%>
+            <label for="">Clients</label><br/>
+              <%- clients = current_account.user.organization.clients.pluck(:name, :id) -%>
+              <%- if @organization -%>
+                <%- select = @organization.id -%>
+              <%- else -%>
+                <%- select = clients[0][1] -%>
+              <%- end -%>
+              <%= select_tag 'invoice[to_org_id]', options_for_select(clients, select), class: 'client_id' -%>
+            <%- end -%>
+          </div>
+          <div class="form-group form-horizontal">
+              <label for="projects">Projects</label><br/>
+              <select name="invoice[project_id]" id="projects">
+                <%- if @invoice.id -%>
+                  <option value="<%= @invoice.project.id -%>"><%= @invoice.project.name -%></option>
+                <%- end -%>
+              </select>
+          </div>
+        </div>
+      </div>
+
+    </fieldset>
+    <fieldset class="col-md-8">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Invoice Details</h4>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <label for="identifier">Identifier</label>
+            <input type="text" id="indentifier" name="invoice[identifier]" class="form-control" value="<%= @invoice.identifier if @invoice.id -%>"/>
+          </div>
+          <div class="form-group">
+            <label for="invoice_date">Invoice Date</label><br/>
+            <%- if @invoice.id -%>
+              <%= select_date @invoice.date, prefix: 'invoice[date]' -%>
+            <%- else -%>
+              <%= select_date Date.today, prefix: 'invoice[date]' -%>
+            <%- end -%>
+          </div>
+          <div class="form-group">
+            <label for="due_date">Due Date</label><br/>
+            <%- if @invoice.id -%>
+              <%= select_date @invoice.due_date, prefix: 'invoice[due_date]' -%>
+            <%- else -%>
+              <%= select_date 30.days.from_now, prefix: 'invoice[due_date]' -%>
+            <%- end -%>
+          </div>
+          <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea name="invoice[notes]" id="notes" rows="4" class="form-control"><%= @invoice.notes if @invoice.id -%></textarea>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div class="row">
+    <fieldset class="col-md-12 form-horizontal">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 style="width: 20%;display: inline-block;">Line Items</h4> <button class="btn btn-primary pull-right btn-xs" style="margin-top: 15px" type="button" id="new-item">Add Another Item</button>
+        </div>
+        <%- if @invoice.id -%>
+          <%- @invoice.line_items.each do |item| -%>
+            <div class="panel-body line-items-set">
+              <div class="col-md-12 line-item">
+                <input type="hidden" name="invoice[line_items_attributes][][id]" value="<%= item.id -%>"/>
+                <div class="form-group col-md-2">
+                  <label for="item">Item</label><br/>
+                  <input type="text" id="item" name="invoice[line_items_attributes][][item]" class="form-control" value="<%= item.item -%>"/>
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="amount">Amount</label><br/>
+                  <input type="text" id="amount" name="invoice[line_items_attributes][][amount]" class="form-control" value="<%= item.amount -%>"/>
+                </div>
+                <div class="form-group col-md-7">
+                  <label for="description">Description</label><br/>
+                  <input type="text" id="description" name="invoice[line_items_attributes][][description]" class="form-control" value="<%= item.description -%>"/>
+                </div>
+                <div class="col-md-1">
+                  <span class="glyphicon glyphicon-remove-circle" id="remove-item" style="font-size: 24px;margin-top: 22px"></span>
+                </div>
+              </div>
+            </div>
+          <%- end -%>
+        <%- else -%>
+          <div class="panel-body line-items-set">
+            <div class="col-md-12 line-item">
+              <div class="form-group col-md-2">
+                <label for="item">Item</label><br/>
+                <input type="text" id="item" name="invoice[line_items_attributes][][item]" class="form-control"/>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="amount">Amount</label><br/>
+                <input type="text" id="amount" name="invoice[line_items_attributes][][amount]" class="form-control"/>
+              </div>
+              <div class="form-group col-md-7">
+                <label for="description">Description</label><br/>
+                <input type="text" id="description" name="invoice[line_items_attributes][][description]" class="form-control"/>
+              </div>
+              <div class="col-md-1">
+                <span class="glyphicon glyphicon-remove-circle" id="remove-item" style="font-size: 24px;margin-top: 22px"></span>
+              </div>
+            </div>
+          </div>
+        <%- end -%>
+      </div>
+    </fieldset>
+  </div>
+  <div class="row bottom-100">
+    <input type="submit" value="<%= @invoice.id ? 'Edit Invoice' : 'Create Invoice' -%>" class="btn btn-primary btn-lg"/>
+  </div>
+
+<%- end -%>

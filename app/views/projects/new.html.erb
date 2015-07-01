@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="row">
+    <h1>New Project <%- unless current_page? new_project_without_org_path -%>with <%= @organization.name -%><%- end -%></h1>
+  </div>
+  <div class="row">
+    <%= render 'form' -%>
+  </div>
+</div>

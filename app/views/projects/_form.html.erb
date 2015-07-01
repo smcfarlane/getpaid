@@ -1,0 +1,29 @@
+<%= form_for [@organization, @project] do |f| -%>
+<fieldset class="col-md-6">
+  <legend>Create New Project</legend>
+  <%- if current_page? new_project_without_org_path -%>
+    <%= render 'new_without_org' -%>
+  <%- end -%>
+  <div class="form-group">
+    <label for="name">Project Name</label>
+    <input type="text" id="name" name="project[name]" class="form-control" value="<%= @project.name if @project.name -%>"/>
+  </div>
+  <div class="form-group">
+    <label for="identifier">Project identifier</label>
+    <input type="text" id="identifier" name="project[identifier]" class="form-control" value="<%= @project.identifier if @project.identifier -%>"/>
+  </div>
+  <div class="form-group">
+    <label for="start_date">Project Start Date</label><br/>
+    <%- @project.start_date ||= Date.today -%>
+    <%= select_date @project.start_date, prefix: 'project[start_date]' %>
+  </div>
+  <div class="form-group">
+    <label for="end_date">Project end Date</label><br/>
+    <%- @project.end_date ||= Date.today -%>
+    <%= select_date @project.end_date, prefix: 'project[end_date]' %>
+  </div>
+  <div class="form-group">
+    <input type="submit" value="Create Project" class="btn btn-primary"/>
+  </div>
+</fieldset>
+<%- end -%>

@@ -1,0 +1,98 @@
+<div class="container">
+  <%= link_to '< Project', organization_project_path(@invoice.to_org, @invoice.project) -%><%- unless @invoice.to_org == current_account.user.organization -%> | <%= link_to 'Client', organization_path(@invoice.to_org) -%><%- end -%>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Invoice: <%= @invoice.identifier -%> </h1>
+      <h3>For Project: <%= @invoice.project.name -%>, <%= @invoice.project.identifier -%></h3>
+    </div>
+    <div class="col-md-8 bottom-20">
+      <div class="btn-group">
+        <%= link_to('Mark Paid', invoice_paid_path(@invoice), method: :post, class: 'btn btn-success btn-md') unless @invoice.paid -%>
+        <%= link_to 'PDF', invoice_path(@invoice, format: 'pdf'), class: 'btn btn-info' -%>
+        <%= link_to 'Edit', edit_invoice_path(@invoice), class: 'btn btn-warning btn-md' -%>
+        <%= link_to 'Remove', invoice_path(@invoice), method: :delete, data: {confirm: 'Are you sure'}, class: 'btn btn-danger btn-md' -%>
+      </div>
+    </div>
+  </div>
+  <div class="row bottom-100">
+    <div class="col-md-8 invoice">
+      <div class="col-md-12">
+        <div class="col-md-4 top-40">
+          <p><strong>From:</strong></p>
+          <p class="names"><%= current_account.user.first_name -%> <%= current_account.user.last_name -%></p>
+          <p class="names"><%= current_account.user.organization.name -%></p>
+          <%- address = current_account.user.organization.addresses[0] -%>
+          <p class="top-5"><%= address.street_address -%> <%= address.street_address2 -%><br/>
+            <%= address.city -%>, <%= address.state -%> <%= address.zip -%></p>
+          <p class="top-5"><%= current_account.user.organization.phones[0].phone_number -%></p>
+        </div>
+        <div class="col-md-6 col-md-offset-2 top-40" style="height: 120px">
+          <h2 class="pull-right" style="margin: 0"><strong>Invoice</strong></h2>
+        </div>
+        <div class="col-md-4 top-30">
+          <p><strong>To:</strong></p>
+          <p class="names"><%= @invoice.to_org.name -%></p>
+          <%- address = @invoice.to_org.addresses[0] -%>
+          <p class="top-5"><%= address.street_address -%> <%= address.street_address2 -%><br/>
+            <%= address.city -%>, <%= address.state -%> <%= address.zip -%></p>
+          <p class="top-5"><%= @invoice.to_org.phones[0].phone_number -%></p>
+        </div>
+        <div class="col-md-6 col-md-offset-2 stay-on-bottom">
+          <table class="pull-right">
+            <tr>
+              <td class="text-right">Invoice #</td>
+              <td class="text-right"><%= @invoice.identifier -%></td>
+            </tr>
+            <tr>
+              <td class="text-right">Invoice Date</td>
+              <td class="text-right"><%= @invoice.date.strftime("%D") -%></td>
+            </tr>
+            <tr>
+              <td class="text-right">Due Date</td>
+              <td class="text-right"><%= @invoice.due_date.strftime("%D") -%></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="col-md-12 divider top-20"></div>
+
+      <div class="col-md-12">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Description</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%- @invoice.line_items.each do |item| -%>
+            <tr>
+              <td><%= item.item -%></td>
+              <td><%= item.description -%></td>
+              <td><%= number_to_currency(item.amount) -%></td>
+            </tr>
+            <%- end -%>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-12 bottom-40">
+        <div class="col-md-8">
+          <h3>Notes</h3>
+          <p><%= @invoice.notes -%></p>
+        </div>
+        <div class="col-md-4 stay-on-bottom">
+          <table class="pull-right">
+            <tr>
+              <td class="text-right"><strong>Total</strong></td>
+              <td class="text-right"><%= number_to_currency(@invoice.line_items.sum(:amount)) -%></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

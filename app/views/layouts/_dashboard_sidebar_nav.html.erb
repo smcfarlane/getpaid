@@ -1,0 +1,6 @@
+<ul class="nav nav-sidebar">
+  <li <%- if current_page? organizations_path -%>class="active"<%- end -%>><%= link_to 'Clients & Vendors', organizations_path -%></li>
+  <li <%- if current_page? organization_projects_path(current_account.user.organization) -%>class="active"<%- end -%>><%= link_to 'Projects', organization_projects_path(current_account.user.organization) -%></li>
+  <li <%- if current_page? invoices_path -%>class="active"<%- end -%>><%= link_to 'Invoices', invoices_path -%></li>
+  <li><a href="#">Reports</a></li>
+</ul>

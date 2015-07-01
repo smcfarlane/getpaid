@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row">
+    <h1>Project: <%= @project.name -%></h1>
+    <p>Client<%= 's' if @clients.count > 1 -%>: <%- @clients.each do |client| -%><%= link_to client.name, organization_path(client) -%> <%- end -%></p>
+    <p>Vendor<%= 's' if @vendors.count > 1 -%>: <%- @vendors.each do |vendor| -%><%= link_to vendor.name, organization_path(vendor) -%> <%- end -%></p>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-md-8">
+          <h2>Invoices</h2>
+        </div>
+        <div class="col-md-4">
+          <%= link_to 'New Invoice', new_invoice_path(project_id: @project.id, org_id: @organization.id), class: 'btn btn-success pull-right', style: 'margin-top: 21px' -%>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Invoice Id</th>
+              <th>Date</th>
+              <th>Due Date</th>
+              <th>Total Amount</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <%- @project.invoices.each do |invoice| -%>
+            <tr class="<%= 'success' if invoice.paid -%>">
+              <td><%= invoice.identifier -%></td>
+              <td><%= invoice.date.strftime('%D') -%></td>
+              <td><%= invoice.due_date.strftime('%D') -%></td>
+              <td><%= number_to_currency(invoice.line_items.sum(:amount)) -%></td>
+              <td>
+                <div class="btn-group pull-right">
+                  <%= link_to('Mark Paid', invoice_paid_path(invoice), method: :post, class: 'btn btn-success btn-xs') unless invoice.paid -%>
+                  <%= link_to 'Show', invoice_path(invoice), class: 'btn btn-default btn-xs' -%>
+                  <%= link_to 'Edit', edit_invoice_path(invoice), class: 'btn btn-warning btn-xs' -%>
+                  <%= link_to 'Remove', invoice_path(invoice), method: :delete, data: {confirm: 'Are you sure'}, class: 'btn btn-danger btn-xs' -%>
+                </div>
+              </td>
+            </tr>
+            <%- end -%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <table class="table">
+        <thead>
+          <tr>
+            <th colspan="2">Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Name</td>
+            <td><%= @project.name -%></td>
+          </tr>
+          <tr>
+            <td>Project Code</td>
+            <td><%= @project.identifier -%></td>
+          </tr>
+          <tr>
+            <td>Start Date</td>
+            <td><%= @project.start_date -%></td>
+          </tr>
+          <tr>
+            <td>End Date</td>
+            <td><%= @project.end_date -%></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

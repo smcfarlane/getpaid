@@ -1,0 +1,64 @@
+
+<div class="container">
+  <%= link_to '< Back', organizations_path %>
+  <div class="row">
+    <h1><%= @organization.name -%></h1>
+    <h2><%= @kind.titlecase -%></h2>
+  </div>
+  <div class="col-md-8">
+    <div class="row">
+      <h2>Projects</h2>
+    </div>
+    <div class="row">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Id</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%- @organization.projects.each do |project| -%>
+          <%- if current_account.user.organization.owned_projects.include? project -%>
+          <tr>
+            <td><%= project.name.titlecase -%></td>
+            <td><%= project.identifier -%></td>
+            <td><%= project.start_date.strftime('%D') -%></td>
+            <td><%= project.end_date.strftime('%D') -%></td>
+            <td>
+              <div class="btn-group pull-right">
+                <%= link_to 'Show', organization_project_path(@organization, project), class: 'btn btn-default' -%>
+                <%= link_to 'Edit', edit_organization_project_path(@organization, project), class: 'btn btn-warning' -%>
+                <%= link_to 'Remove', organization_project_path(@organization, project), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' -%>
+              </div>
+            </td>
+          </tr>
+          <%- end -%>
+          <%- end -%>
+          <%- if @organization.projects.empty? -%>
+          <tr>
+            <td colspan="4" class="text-center">None</td>
+          </tr>
+          <%- end -%>
+        </tbody>
+      </table>
+    </div>
+    <div class="row">
+      <%= link_to 'Add Project', new_organization_project_path(@organization), class: 'btn btn-default' -%>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <h2>Contact Information</h2>
+      <h3>Address</h3>
+      <%- a = @organization.addresses[0] -%>
+      <p><%= a.street_address -%> <br/>
+         <%= a.street_address2 -%> <br/>
+         <%= a.city -%>, <%= a.state -%> <%= a.zip -%></p>
+      <h3>Phone Number</h3>
+      <p><%= @organization.phones[0].phone_number -%></p>
+    </div>
+  </div>
+</div>
