@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   post 'invoices/:id/paid' => 'invoices#paid', as: :invoice_paid
 
-  post 'invoices/:id/email_client' => 'invoices#paid', as: :email_client_invoice
+  post 'invoices/:id/email_client' => 'invoices#email_client', as: :email_client_invoice
 
   authenticated do
     root :to => 'organizations#index', as: :auth_root

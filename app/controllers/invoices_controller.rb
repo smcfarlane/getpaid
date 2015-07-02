@@ -61,7 +61,7 @@ class InvoicesController < ApplicationController
   end
 
   def email_client
-    InvoiceMailer.email_client(@invoice, current_user, params[:to], params[:from]).deliver
+    InvoiceMailer.email_client(@invoice, current_account, params[:to], params[:from]).deliver
     redirect_to :back
   end
 
