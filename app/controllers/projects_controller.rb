@@ -67,6 +67,7 @@ class ProjectsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:id])
+    raise ActionController::RoutingError.new('Not Found') unless @project.owner == current_account.user.organization
   end
 
   def set_organization

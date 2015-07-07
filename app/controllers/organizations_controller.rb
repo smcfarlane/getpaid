@@ -4,13 +4,11 @@ class OrganizationsController < ApplicationController
   layout 'dashboard'
 
   # GET /organizations
-  # GET /organizations.json
   def index
     @organization = current_account.user.organization
   end
 
   # GET /organizations/1
-  # GET /organizations/1.json
   def show
     get_kind @organization
   end
@@ -31,7 +29,6 @@ class OrganizationsController < ApplicationController
   end
 
   # POST /organizations
-  # POST /organizations.json
   def create
     @organization = Organization.create(org_params)
     current_account.user.organization.vendors << @organization if params[:partner_type] == 'vendor'
@@ -66,7 +63,6 @@ class OrganizationsController < ApplicationController
   end
 
   # DELETE /organizations/1
-  # DELETE /organizations/1.json
   def destroy_client
     @partner = Partner.where(organization_id: current_account.user.organization, client_id: params[:id])
     @partner.each {|partner| partner.destroy}
@@ -77,6 +73,17 @@ class OrganizationsController < ApplicationController
     @partner = Partner.where(organization_id: current_account.user.organization, vendor_id: params[:id])
     @partner.each {|partner| partner.destroy}
     redirect_to organizations_path
+  end
+
+  def add_to_project
+    if params[:kind] == 'client'
+      @organization = Organization.find(params[:id])
+      @organization.projects << Project.find(params[:project_id])
+    elsif params[:kind] == 'vendor'
+      @organization = Organization.find(params[:id])
+      @organization.projects << Project.find(params[:project_id])
+    end
+    redirect_to :back
   end
 
   private

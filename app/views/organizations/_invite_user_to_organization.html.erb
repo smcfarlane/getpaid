@@ -1,0 +1,24 @@
+<div class="modal fade" id="inviteUser" tabindex="-1" role="dialog" aria-labelledby="inviteUser">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addToProjectModalLabel">Invite <%= @organization.name -%></h4>
+      </div>
+      <%= form_tag(@kind == 'client' ? invites_invite_client_path : invites_invite_vendor_path) do -%>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="">Enter a email</label>
+            <input type="text" name="invite[email]" id="email" class="form-control"/>
+          </div>
+          <input type="hidden" name="invite[organization_id]" value="<%= @organization.id -%>"/>
+          <input type="hidden" name="invite[kind]" value="<%= @kind -%>"/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add to Project</button>
+        </div>
+      <%- end -%>
+    </div>
+  </div>
+</div>

@@ -2,8 +2,13 @@
 <div class="container">
   <%= link_to '< Back', organizations_path %>
   <div class="row">
-    <h1><%= @organization.name -%></h1>
-    <h2><%= @kind.titlecase -%></h2>
+    <div class="col-md-10">
+      <h1><%= @organization.name -%></h1>
+      <h2><%= @kind.titlecase -%></h2>
+    </div>
+    <div class="col-md-2">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inviteUser">Invite <%= @organization.name -%></button>
+    </div>
   </div>
   <div class="col-md-8">
     <div class="row">
@@ -20,8 +25,7 @@
           </tr>
         </thead>
         <tbody>
-          <%- @organization.projects.each do |project| -%>
-          <%- if current_account.user.organization.owned_projects.include? project -%>
+          <%- (@organization.projects & current_account.user.organization.owned_projects).each do |project| -%>
           <tr>
             <td><%= project.name.titlecase -%></td>
             <td><%= project.identifier -%></td>
@@ -36,7 +40,6 @@
             </td>
           </tr>
           <%- end -%>
-          <%- end -%>
           <%- if @organization.projects.empty? -%>
           <tr>
             <td colspan="4" class="text-center">None</td>
@@ -46,7 +49,10 @@
       </table>
     </div>
     <div class="row">
-      <%= link_to 'Add Project', new_organization_project_path(@organization), class: 'btn btn-default' -%>
+      <div class="btn-group">
+        <%= link_to 'Add Project', new_organization_project_path(@organization), class: 'btn btn-default' -%>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addToProjectModal">Add to Project</button>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -62,3 +68,5 @@
     </div>
   </div>
 </div>
+<%= render 'add_to_project_modal' -%>
+<%= render 'invite_user_to_organization' -%>

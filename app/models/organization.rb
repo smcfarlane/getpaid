@@ -22,4 +22,10 @@ class Organization < ActiveRecord::Base
   has_many :partner_managers, foreign_key: :client_id, class_name: 'Partner'
   has_many :managers, through: :partner_managers, source: :managers
 
+  def all_related_orgs with_names: false
+    names = ''
+    names = ', o2.name' if with_names
+    ActiveRecord::Base.connection.exec_query("SELECT o2.id#{names} FROM organizations o JOIN partners p ON (p.organization_id = o.id) JOIN organizations o2 ON (o2.id = p.vendor_id OR o2.id = p.client_id) WHERE o.id = #{self.id}").rows
+  end
+
 end

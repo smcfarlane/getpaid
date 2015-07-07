@@ -69,6 +69,7 @@ class InvoicesController < ApplicationController
 
   def set_invoice
     @invoice = Invoice.find(params[:id])
+    raise ActionController::RoutingError.new('Not Found') unless @invoice.project.owner == current_account.user.organization
   end
 
   def get_invoice_params

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  post 'invites/invite_vendor'
+
+  post 'invites/invite_client'
+
   resources :invoices
 
   post 'invoices/:id/paid' => 'invoices#paid', as: :invoice_paid
@@ -28,6 +32,7 @@ Rails.application.routes.draw do
   get 'organization/new/vendor' => 'organizations#new_vendor'
   delete 'organization/destroy/client/:id' => 'organizations#destroy_client', as: :destroy_client_org
   delete 'organization/destroy/vendor/:id' => 'organizations#destroy_vendor', as: :destroy_vendor_org
+  post 'organization/add_to_project' => 'organizations#add_to_project', as: :add_org_to_project
 
   devise_for :accounts
 

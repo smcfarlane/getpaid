@@ -1,0 +1,24 @@
+<div class="modal fade" id="addToProjectModal" tabindex="-1" role="dialog" aria-labelledby="addToProjectModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addToProjectModalLabel">Add <%= @kind.titlecase -%> to a Project</h4>
+      </div>
+      <%= form_tag add_org_to_project_path do -%>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="">Pick a Project</label>
+            <%= select_tag :project_id, options_for_select(current_account.user.organization.owned_projects.load.pluck(:name, :id)) -%>
+          </div>
+          <input type="hidden" name="id" value="<%= @organization.id -%>"/>
+          <input type="hidden" name="kind" value="<%= @kind -%>"/>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add to Project</button>
+        </div>
+      <%- end -%>
+    </div>
+  </div>
+</div>
