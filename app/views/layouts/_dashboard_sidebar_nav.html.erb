@@ -1,6 +1,30 @@
 <ul class="nav nav-sidebar">
-  <li <%- if current_page? organizations_path -%>class="active"<%- end -%>><%= link_to 'Clients & Vendors', organizations_path -%></li>
-  <li <%- if current_page? organization_projects_path(current_account.user.organization) -%>class="active"<%- end -%>><%= link_to 'Projects', organization_projects_path(current_account.user.organization) -%></li>
-  <li <%- if current_page? invoices_path -%>class="active"<%- end -%>><%= link_to 'Invoices', invoices_path -%></li>
-  <li><a href="#">Reports</a></li>
+  <%- if current_account.user -%>
+      <%- if current_account.user.organization -%>
+        <li <%- if current_page? organizations_path -%>class="active"<%- end -%>><%= link_to 'Clients & Vendors', organizations_path -%></li>
+        <li <%- if current_page? organization_projects_path(current_account.user.organization) -%>class="active"<%- end -%>><%= link_to 'Projects', organization_projects_path(current_account.user.organization) -%></li>
+        <li <%- if current_page? invoices_path -%>class="active"<%- end -%>><%= link_to 'Invoices', invoices_path -%></li>
+        <li><a href="#">Reports</a></li>
+      <%- else -%>
+      <li><span class="navbar-text" style="width: 100%;">Clients & Vendors</span></li>
+      <li><span class="navbar-text" style="width: 100%;">Projects</span></li>
+      <li><span class="navbar-text" style="width: 100%;">Invoices</span></li>
+      <li><span class="navbar-text" style="width: 100%;">Reports</span></li>
+      <%- end -%>
+  <%- else -%>
+    <li><span class="navbar-text" style="width: 100%;">Clients & Vendors</span></li>
+    <li><span class="navbar-text" style="width: 100%;">Projects</span></li>
+    <li><span class="navbar-text" style="width: 100%;">Invoices</span></li>
+    <li><span class="navbar-text" style="width: 100%;">Reports</span></li>
+  <%- end -%>
 </ul>
+<ul>
+  <%- if current_account.has_role? :admin -%>
+    <li><%= link_to 'Users', all_users_path -%></li>
+  <%- end -%>
+  <%- if current_account.has_role? :manager, current_account.user.organization -%>
+    <li><%= link_to 'Users', users_path -%></li>
+  <%- end -%>
+</ul>
+
+

@@ -14,6 +14,7 @@ Project.delete_all
 ProjectOrg.delete_all
 Invoice.delete_all
 LineItem.delete_all
+Role.delete_all
 
 ######################################################
 
@@ -79,10 +80,12 @@ end
     e1.update_attribute :emailable, org
     p1 = create_phone
     p1.update_attribute :callable, org
+  org.save
   # email for user
     email = "#{fname}.#{lname}@#{org.name.gsub(/\W/, '')}.com"
   # create user account
     account = Account.create!(email: email, password: 'password', password_confirmation: 'password')
+    account.add_role :manager, org
   # create user info
     user = User.create(first_name: fname, last_name: lname, organization: org, account: account)
   # add an address, email, and phone number to user
@@ -93,6 +96,33 @@ end
     p = create_phone
     p.update_attribute :callable, user
 end
+
+# Create Admin
+fname = 'steven'
+lname = 'mcfarlane'
+# org for user
+admin_org = create_org name: 'ACME'
+# add info to org
+a1 = create_address
+a1.update_attribute :addressable, admin_org
+e1 = create_email
+e1.update_attribute :emailable, admin_org
+p1 = create_phone
+p1.update_attribute :callable, admin_org
+# email for user
+email = "#{fname}.#{lname}@#{admin_org.name.gsub(/\W/, '')}.com"
+# create user account
+admin_account = Account.create!(email: email, password: 'password', password_confirmation: 'password')
+# create user info
+admin = User.create(first_name: fname, last_name: lname, organization: admin_org, account: admin_account)
+# add an address, email, and phone number to user
+a = create_address
+a.update_attribute :addressable, admin
+e = create_email email: email
+e.update_attribute :emailable, admin
+p = create_phone
+p.update_attribute :callable, admin
+admin_account.add_role :admin
 
 # create more orgs
 20.times do |i|

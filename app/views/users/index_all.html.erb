@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+    <h2>Users</h2>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Organization</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%- @users.each do |user| -%>
+            <tr>
+              <td><%= user.first_name.titlecase -%> <%= user.last_name.titlecase -%></td>
+              <td><%= user.account.email -%></td>
+              <td><%= user.organization.name -%></td>
+            </tr>
+          <%- end -%>
+        </tbody>
+      </table>
+      <%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+    </div>
+  </div>
+</div>

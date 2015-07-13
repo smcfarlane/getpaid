@@ -13,6 +13,11 @@ class OrganizationsController < ApplicationController
     get_kind @organization
   end
 
+  def new_your_org
+    @kind = 'your organization'
+    @organization = Organization.new
+  end
+
   def new_client
     @kind = 'client'
     @organization = Organization.new
@@ -31,14 +36,16 @@ class OrganizationsController < ApplicationController
   # POST /organizations
   def create
     @organization = Organization.create(org_params)
-    current_account.user.organization.vendors << @organization if params[:partner_type] == 'vendor'
-    current_account.user.organization.clients << @organization if params[:partner_type] == 'client'
     @address = Address.create(address_params)
     @address.update_attribute :addressable, @organization
     @phone = Phone.create(phone_params)
     @phone.update_attribute :callable, @organization
 
     if @organization.save && @address.save && @phone.save
+      current_account.user.organization.vendors << @organization if params[:partner_type] == 'vendor'
+      current_account.user.organization.clients << @organization if params[:partner_type] == 'client'
+      current_account.user.organization = @organization if params[:partner_type] == 'your organization'
+      current_account.user.save
       redirect_to organizations_path
     else
       @kind = params[:partner_type]
@@ -49,12 +56,11 @@ class OrganizationsController < ApplicationController
   # PATCH/PUT /organizations/1
   def update
     @organization = Organization.update(org_params)
-    current_account.user.organization.vendors << @organization if params[:partner_type] == 'vendor'
-    current_account.user.organization.clients << @organization if params[:partner_type] == 'client'
     @organization.addresses[0].update(address_params)
     @organization.phones[0].update(phone_params)
-
     if @organization.save
+      current_account.user.organization.vendors << @organization if params[:partner_type] == 'vendor'
+      current_account.user.organization.clients << @organization if params[:partner_type] == 'client'
       redirect_to organizations_path
     else
       @kind = params[:partner_type]

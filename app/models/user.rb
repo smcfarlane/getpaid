@@ -5,4 +5,9 @@ class User < ActiveRecord::Base
   has_many :phones, as: :callable
   has_many :emails, as: :emailable
   has_many :invites, foreign_key: :inviting_user
+
+  accepts_nested_attributes_for :addresses
+  accepts_nested_attributes_for :phones
+  accepts_nested_attributes_for :emails
+  accepts_nested_attributes_for :organization
 end
