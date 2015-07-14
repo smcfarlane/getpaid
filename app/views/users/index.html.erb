@@ -1,25 +1,37 @@
 <div class="container">
   <div class="row">
     <h2>Users</h2>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inviteUser">Invite New User</button>
   </div>
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
       <table class="table">
         <thead>
         <tr>
           <th>Name</th>
+          <th>Role</th>
           <th>Email</th>
           <th>Organization</th>
+          <th></th>
         </tr>
         </thead>
         <tbody>
         <%- @users.each do |user| -%>
           <tr>
             <td><%= user.first_name.titlecase -%> <%= user.last_name.titlecase -%></td>
+            <td><%= 'manager' if user.account.has_role? :manager, current_account.user.organization -%></td>
             <td><%= user.account.email -%></td>
             <td><%= user.organization.name -%></td>
+            <td>
+              <%- unless current_account.user == user -%>
+              <div class="btn-group">
+                <%= link_to 'Make Manager', make_user_manager_path(user), method: :post, class: 'btn btn-primary btn-xs' -%>
+                <%= link_to 'Delete User', user_path(user), method: :delete, confirm: 'Are you sure?', class: 'btn btn-danger btn-xs' -%>
+              </div>
+              <%- end -%>
+            </td>
           </tr>
         <%- end -%>
         </tbody>
@@ -28,3 +40,4 @@
     </div>
   </div>
 </div>
+<%= render 'invite_user_to_organization' -%>

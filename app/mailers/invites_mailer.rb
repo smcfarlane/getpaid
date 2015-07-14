@@ -2,13 +2,7 @@ class InvitesMailer < ApplicationMailer
   include Rails.application.routes.url_helpers
   include ActionView::Helpers::UrlHelper
 
-  def email_client_invite invite, user
-    @user = user
-    @invite = invite
-    mail to: invite.email, from: 'getpaid@example.com', subject: "You have been invited to use Get Paid for invoices by #{user.first_name} #{user.last_name}"
-  end
-
-  def email_vendor_invite invite, user
+  def email_invite invite, user
     @user = user
     @invite = invite
     mail to: invite.email, from: 'getpaid@example.com', subject: "You have been invited to use Get Paid for invoices by #{user.first_name} #{user.last_name}"

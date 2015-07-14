@@ -1,4 +1,5 @@
 class Organization < ActiveRecord::Base
+  resourcify
   has_many :users
   has_many :addresses, as: :addressable
   has_many :phones, as: :callable
@@ -24,8 +25,8 @@ class Organization < ActiveRecord::Base
 
   def all_related_orgs with_names: false
     names = ''
-    names = ', o2.name' if with_names
-    ActiveRecord::Base.connection.exec_query("SELECT o2.id#{names} FROM organizations o JOIN partners p ON (p.organization_id = o.id) JOIN organizations o2 ON (o2.id = p.vendor_id OR o2.id = p.client_id) WHERE o.id = #{self.id}").rows
+    names = 'o2.name, ' if with_names
+    ActiveRecord::Base.connection.exec_query("SELECT #{names}o2.id FROM organizations o JOIN partners p ON (p.organization_id = o.id) JOIN organizations o2 ON (o2.id = p.vendor_id OR o2.id = p.client_id) WHERE o.id = #{self.id}").rows
   end
 
 end

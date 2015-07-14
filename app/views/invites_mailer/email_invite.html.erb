@@ -1,0 +1,8 @@
+<div style="margin: 20px; padding: 10px">
+  <header><h1>Invoices Made Easy</h1></header>
+  <div>
+    <p><%= @user.first_name.capitalize -%> <%= @user.last_name.capitalize -%> invited you to send invoices through this service.</p>
+    <p>Use the email this message was sent to and this password '<%= @invite.identifier[0, 10] -%>' to sign in. Please change your password apon signing in.</p>
+    <p>Please, sign in here <a href="http://localhost:3000/accounts/sign_in">Sign In</a></p>
+  </div>
+</div>

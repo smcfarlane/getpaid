@@ -1,21 +1,17 @@
 Rails.application.routes.draw do
-  devise_for :accounts, controllers: { registrations: "registrations" }
+
   get 'users/all' => 'users#index_all', as: :all_users
+  post 'user/:id/make_manager' => 'users#make_manager', as: :make_user_manager
   resources :users
 
-  post 'invites/invite_vendor'
-  post 'invites/invite_client'
+  post 'invite_user' => 'invites#invite', as: :invite_user
 
-  resources :invoices
   post 'invoices/:id/paid' => 'invoices#paid', as: :invoice_paid
   post 'invoices/:id/email_client' => 'invoices#email_client', as: :email_client_invoice
+  resources :invoices
 
   authenticated do
     root :to => 'organizations#index', as: :auth_root
-  end
-
-  resources :organizations, except: [:new, :destroy] do
-    resources :projects
   end
 
   get 'get-client-projects' => 'projects#get_client_projects'
@@ -27,6 +23,12 @@ Rails.application.routes.draw do
   delete 'organization/destroy/client/:id' => 'organizations#destroy_client', as: :destroy_client_org
   delete 'organization/destroy/vendor/:id' => 'organizations#destroy_vendor', as: :destroy_vendor_org
   post 'organization/add_to_project' => 'organizations#add_to_project', as: :add_org_to_project
+
+  resources :organizations, except: [:new, :destroy] do
+    resources :projects
+  end
+
+  devise_for :accounts, controllers: { registrations: "registrations" }
 
   root 'welcome#home'
   get 'welcome/features'

@@ -6,9 +6,6 @@
       <h1><%= @organization.name -%></h1>
       <h2><%= @kind.titlecase -%></h2>
     </div>
-    <div class="col-md-2">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inviteUser">Invite <%= @organization.name -%></button>
-    </div>
   </div>
   <div class="col-md-8">
     <div class="row">
@@ -69,4 +66,3 @@
   </div>
 </div>
 <%= render 'add_to_project_modal' -%>
-<%= render 'invite_user_to_organization' -%>

@@ -29,3 +29,7 @@ select, select.form-control {
   padding-left: 20px;
   padding-right: 20px;
 }
+
+select[disabled] {
+  background-color: #666;
+}

@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   belongs_to :organization
-  belongs_to :account
+  belongs_to :account, dependent: :destroy
   has_many :addresses, as: :addressable
   has_many :phones, as: :callable
   has_many :emails, as: :emailable

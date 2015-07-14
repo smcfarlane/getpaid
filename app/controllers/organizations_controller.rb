@@ -70,13 +70,13 @@ class OrganizationsController < ApplicationController
 
   # DELETE /organizations/1
   def destroy_client
-    @partner = Partner.where(organization_id: current_account.user.organization, client_id: params[:id])
+    @partner = Partner.where(organization_id: current_account.user.organization, client_id: params[:id]).load
     @partner.each {|partner| partner.destroy}
     redirect_to organizations_path
   end
 
   def destroy_vendor
-    @partner = Partner.where(organization_id: current_account.user.organization, vendor_id: params[:id])
+    @partner = Partner.where(organization_id: current_account.user.organization, vendor_id: params[:id]).load
     @partner.each {|partner| partner.destroy}
     redirect_to organizations_path
   end

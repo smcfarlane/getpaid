@@ -27,12 +27,14 @@
           <%= f.fields_for :phones do |f_p| -%>
             <div class="form-group">
               <%= f_p.label :phone_number -%>
+              <%= f_p.hidden_field :id -%>
               <%= f_p.text_field :phone_number, class: 'form-control' -%>
             </div>
           <%- end -%>
           <%= f.fields_for :emails do |f_e| -%>
             <div class="form-group">
               <label for="">Alternate Email</label>
+              <%= f_e.hidden_field :id -%>
               <%= f_e.text_field :email, class: 'form-control' -%>
             </div>
           <%- end -%>
@@ -41,6 +43,7 @@
     </div>
 
     <%= f.fields_for :addresses do |f_a| -%>
+      <%= f_a.hidden_field :id -%>
       <div class="col-md-6">
         <fieldset class="panel panel-default">
           <div class="panel-heading">
