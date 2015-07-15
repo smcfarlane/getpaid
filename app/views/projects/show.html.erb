@@ -13,7 +13,7 @@
         <div class="col-md-4">
           <%= link_to 'New Invoice', new_invoice_path(project_id: @project.id, org_id: @organization.id), class: 'btn btn-success pull-right', style: 'margin-top: 21px' -%>
         </div>
-        <table class="table">
+        <table class="table table-hover">
           <thead>
             <tr>
               <th>Invoice Id</th>
@@ -25,7 +25,7 @@
           </thead>
           <tbody>
             <%- @project.invoices.each do |invoice| -%>
-            <tr class="<%= 'success' if invoice.paid -%>">
+            <tr  data-link="<%= invoice_path(invoice) -%>" style="cursor: pointer" class="<%= 'success' if invoice.paid -%>">
               <td><%= invoice.identifier -%></td>
               <td><%= invoice.date.strftime('%D') -%></td>
               <td><%= invoice.due_date.strftime('%D') -%></td>

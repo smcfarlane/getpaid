@@ -1,7 +1,7 @@
 class UsersController < AuthorizeController
   before_filter :authenticate_account!
   before_action :authorize_admin, only: [:index_all]
-  before_action :get_user, only: [:edit, :update, :destroy, :make_manager]
+  before_action :get_user, except: [:index_all, :index, :new, :create]
   layout 'dashboard', except: [:edit]
 
   def index_all
@@ -16,6 +16,34 @@ class UsersController < AuthorizeController
   def make_manager
     @user.account.add_role :manager, @user.organization
     redirect_to :back
+  end
+
+  def demote_manager
+    @user.account.remove_role :manager, @user.organization
+    redirect_to :back
+  end
+
+  def select_projects
+    @projects = Project.find params[:projects]
+    @projects.each do |project|
+      @user.account.add_role(:employee, project)
+    end
+    redirect_to :back
+  end
+
+  def remove_from_project
+    @project = Project.find params[:project_id]
+    @user.account.remove_role :employee, @project
+    redirect_to :back
+  end
+
+  def show
+    @all_projects = current_account.user.organization.projects
+    if @user.account.has_role?(:manager, current_account.user.organization)
+      @projects = @all_projects
+    else
+      @projects = Project.with_role(:employee, @user.account)
+    end
   end
 
   def new
@@ -42,12 +70,17 @@ class UsersController < AuthorizeController
   end
 
   def edit
+    @user.addresses.build if @user.addresses.count == 0
+    @user.phones.build if @user.phones.count == 0
+    @user.emails.build if @user.emails.count == 0
   end
 
   def update
     @user.update(get_new_user_params)
     if @user.save
-      redirect_to :back
+      @user.account.sign_in_count += 1
+      @user.account.save
+      redirect_to :root
     else
       render :edit
     end

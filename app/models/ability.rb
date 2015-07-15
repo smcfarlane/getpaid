@@ -6,9 +6,17 @@ class Ability
 
     if user.has_role? :admin
       can :manage, :all
-
     elsif user.has_role? :manager
       can :manage, User if user.has_role?(:manager, user.organization)
+      can :manage, Organization if user.has_role?(:manager, user.organization)
+      can :manage, Project if user.has_role?(:manager, user.organization)
+      can :manage, Invoice if user.has_role?(:manager, user.organization)
+    elsif user.has_role? :employee
+      projects = Project.with_role(:employee, user).pluck(:id)
+      can :manage, User, id: user.id
+      can :manage, Project, id: projects
+      can :manage, Organization, id: Organization.with_role(:employee, user).pluck(:id)
+      can :manage, Invoice, id: Invoice.where(project_id: projects)
     else
       can :read, :all
     end

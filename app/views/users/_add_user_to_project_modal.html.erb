@@ -1,0 +1,27 @@
+<div class="modal fade" id="addUserToProject" tabindex="-1" role="dialog" aria-labelledby="inviteUser">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addUserToProject">Select the projects this user can manage</h4>
+      </div>
+      <%= form_tag(select_projects_for_user_path(@user)) do -%>
+        <div class="modal-body">
+          <%- @all_projects.each do |project| -%>
+          <div class="form-group col-md-6">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="projects[]" value="<%= project.id -%>"> <%= project.name -%> <br/> <%= project.identifier -%>
+              </label>
+            </div>
+          </div>
+          <%- end -%>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Ok</button>
+        </div>
+      <%- end -%>
+    </div>
+  </div>
+</div>

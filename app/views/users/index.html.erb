@@ -27,6 +27,7 @@
             <td>
               <%- unless current_account.user == user -%>
               <div class="btn-group">
+                <%= link_to 'View', user_path(user), class: 'btn btn-info btn-xs' -%>
                 <%= link_to 'Make Manager', make_user_manager_path(user), method: :post, class: 'btn btn-primary btn-xs' -%>
                 <%= link_to 'Delete User', user_path(user), method: :delete, confirm: 'Are you sure?', class: 'btn btn-danger btn-xs' -%>
               </div>

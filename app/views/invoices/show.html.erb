@@ -11,7 +11,7 @@
       <div class="btn-group">
         <%= link_to('Mark Paid', invoice_paid_path(@invoice), method: :post, class: 'btn btn-success btn-md') unless @invoice.paid -%>
         <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#email-client-modal">Email Invoice to Client</button>
-        <%= link_to 'PDF', invoice_path(@invoice, format: 'pdf'), class: 'btn btn-info' -%>
+        <%= link_to 'PDF', invoice_path(@invoice, format: 'pdf'), class: 'btn btn-info btn-md' -%>
         <%= link_to 'Edit', edit_invoice_path(@invoice), class: 'btn btn-warning btn-md' -%>
         <%= link_to 'Remove', invoice_path(@invoice), method: :delete, data: {confirm: 'Are you sure'}, class: 'btn btn-danger btn-md' -%>
       </div>

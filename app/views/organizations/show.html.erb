@@ -12,27 +12,27 @@
       <h2>Projects</h2>
     </div>
     <div class="row">
-      <table class="table">
+      <table class="table table-hover">
         <thead>
           <tr>
             <th>Name</th>
             <th>Id</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           <%- (@organization.projects & current_account.user.organization.owned_projects).each do |project| -%>
-          <tr>
+          <tr data-link="<%= organization_project_path(@organization, project) -%>" style="cursor: pointer">
             <td><%= project.name.titlecase -%></td>
             <td><%= project.identifier -%></td>
             <td><%= project.start_date.strftime('%D') -%></td>
             <td><%= project.end_date.strftime('%D') -%></td>
             <td>
               <div class="btn-group pull-right">
-                <%= link_to 'Show', organization_project_path(@organization, project), class: 'btn btn-default' -%>
-                <%= link_to 'Edit', edit_organization_project_path(@organization, project), class: 'btn btn-warning' -%>
-                <%= link_to 'Remove', organization_project_path(@organization, project), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger' -%>
+                <%= link_to 'Edit', edit_organization_project_path(@organization, project), class: 'btn btn-warning btn-xs' -%>
+                <%= link_to 'Remove', organization_project_path(@organization, project), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger btn-xs' -%>
               </div>
             </td>
           </tr>

@@ -4,7 +4,12 @@ class InvoicesController < ApplicationController
   layout 'dashboard'
 
   def index
-    @invoices = current_account.user.organization.invoices.where(active: true)
+    if current_account.has_role? :manager, current_account.user.organization
+      @invoices = current_account.user.organization.invoices.where(active: true).paginate(:page => params[:page], :per_page => 10)
+    else
+      projects = Project.with_role(:employee, current_account).pluck(:id)
+      @invoices = current_account.user.organization.invoices.where(active: true, project_id: projects).paginate(:page => params[:page], :per_page => 10)
+    end
   end
 
   def show

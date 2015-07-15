@@ -1,4 +1,5 @@
 class Project < ActiveRecord::Base
+  resourcify
   has_many :project_orgs
   has_many :organizations, through: :project_orgs
   has_many :invoices, -> {where(active: true)}

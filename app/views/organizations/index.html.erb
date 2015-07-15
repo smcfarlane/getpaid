@@ -5,63 +5,82 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
-      <table class="table">
-        <thead>
-        <tr>
-          <th><h2>Clients</h2></th>
-          <th><%= link_to 'New Client', organization_new_client_path, class: 'btn btn-success pull-right' -%></th>
-        </tr>
-        <tr>
-          <th>Name</th>
-          <th></th>
-        </tr>
-        </thead>
+    <div class="col-md-12">
 
-        <tbody>
-        <% @organization.clients.each do |organization| %>
-          <tr>
-            <td><%= organization.name -%></td>
-            <td>
-              <div class="btn-group pull-right">
-                <%= link_to 'Show', organization, class: 'btn btn-default' %>
-                <%= link_to 'Edit', edit_organization_path(organization), class: 'btn btn-warning' %>
-                <%= link_to 'Remove', destroy_client_org_path(organization), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-              </div>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-md-6">
-      <table class="table">
-        <thead>
-        <tr>
-          <th><h2>Vendors</h2></th>
-          <th><%= link_to 'New Vendor', organization_new_vendor_path, class: 'btn btn-success pull-right' -%></th>
-        </tr>
-        <tr>
-          <th>Name</th>
-          <th></th>
-        </tr>
-        </thead>
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#clients" aria-controls="clients" role="tab" data-toggle="tab">Clients</a>
+        </li>
+        <li role="presentation">
+          <a href="#vendors" aria-controls="vendors" role="tab" data-toggle="tab">Vendors</a>
+        </li>
+      </ul>
 
-        <tbody>
-        <% @organization.vendors.each do |organization| %>
-          <tr>
-            <td><%= organization.name -%></td>
-            <td>
-              <div class="btn-group pull-right">
-                <%= link_to 'Show', organization, class: 'btn btn-default' %>
-                <%= link_to 'Edit', edit_organization_path(organization), class: 'btn btn-warning' %>
-                <%= link_to 'Remove', destroy_vendor_org_path(organization), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-              </div>
-            </td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="clients">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th><h2>Clients</h2></th>
+              <th><%= link_to 'New Client', organization_new_client_path, class: 'btn btn-success pull-right' -%></th>
+            </tr>
+            <tr>
+              <th>Name</th>
+              <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% @organization.clients.each do |organization| %>
+              <%- if current_account.has_role?(:manager, @organization) || @authorize_orgs.include?(organization.id) -%>
+                <tr data-link="<%= organization_path(organization) -%>" style="cursor: pointer">
+                  <td><%= organization.name -%></td>
+                  <td>
+                    <div class="btn-group pull-right">
+                      <%= link_to 'Edit', edit_organization_path(organization), class: 'btn btn-warning btn-xs' %>
+                      <%= link_to 'Remove', destroy_client_org_path(organization), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+                    </div>
+                  </td>
+                </tr>
+              <%- end -%>
+            <%- end -%>
+            </tbody>
+          </table>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="vendors">
+          <table class="table table-hover">
+            <thead>
+            <tr>
+              <th><h2>Vendors</h2></th>
+              <th><%= link_to 'New Vendor', organization_new_vendor_path, class: 'btn btn-success pull-right' -%></th>
+            </tr>
+            <tr>
+              <th>Name</th>
+              <th></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <% @organization.vendors.each do |organization| %>
+              <%- if current_account.has_role?(:manager, @organization) || @authorize_orgs.include?(organization.id) -%>
+                <tr data-link="<%= organization_path(organization) -%>" style="cursor: pointer">
+                  <td><%= organization.name -%></td>
+                  <td>
+                    <div class="btn-group pull-right">
+                      <%= link_to 'Edit', edit_organization_path(organization), class: 'btn btn-warning btn-xs' %>
+                      <%= link_to 'Remove', destroy_vendor_org_path(organization), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+                    </div>
+                  </td>
+                </tr>
+              <%- end -%>
+            <%- end -%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
+
   </div>
 </div>

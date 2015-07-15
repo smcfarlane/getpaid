@@ -4,7 +4,8 @@ class InvitesController < ApplicationController
     @invite = Invite.create(get_invite_params)
     if @invite.save
       @account = Account.create(email: @invite.email, password: @invite.identifier[0, 10])
-      @user = User.create(first_name: @invite.first_name, last_name: @invite.last_name, account: @account, organization: @invite.organization)
+      @user = User.create(first_name: @invite.first_name, last_name: @invite.last_name,
+                          account: @account, organization: @invite.organization)
       InvitesMailer.email_invite(@invite, current_account.user).deliver_now
       redirect_to :back
     else

@@ -2,6 +2,9 @@ Rails.application.routes.draw do
 
   get 'users/all' => 'users#index_all', as: :all_users
   post 'user/:id/make_manager' => 'users#make_manager', as: :make_user_manager
+  post 'user/:id/demote_manager' => 'users#demote_manager', as: :demote_user_manager
+  post 'user/:id/select_projects' => 'users#select_projects', as: :select_projects_for_user
+  post 'user/:id/remove_from_project/:project_id' => 'users#remove_from_project', as: :remove_user_from_project
   resources :users
 
   post 'invite_user' => 'invites#invite', as: :invite_user

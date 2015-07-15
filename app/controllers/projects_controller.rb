@@ -5,6 +5,11 @@ class ProjectsController < ApplicationController
   layout 'dashboard'
 
   def index
+    if current_account.has_role?(:manager, current_account.user.organization)
+      @projects = current_account.user.organization.owned_projects.paginate(:page => params[:page], :per_page => 10)
+    else
+      @projects = Project.with_role(:employee, current_account).paginate(:page => params[:page], :per_page => 10)
+    end
   end
 
   def show

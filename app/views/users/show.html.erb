@@ -1,5 +1,62 @@
 <div class="contianer">
   <div class="row">
-    <h2>User Information</h2>
+    <div class="col-md-12">
+      <h2>User Information</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#user-information" aria-controls="user-information" role="tab" data-toggle="tab">User Information</a>
+        </li>
+        <li role="presentation">
+          <a href="#projects" aria-controls="Projects" role="tab" data-toggle="tab">Projects</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="user-information">
+          <div class="col-md-6 top-20">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <p><strong>Name:</strong> <%= @user.first_name -%> <%= @user.last_name -%></p>
+                <p><strong>Role:</strong> <%= @user.account.has_role?(:manager, current_account.user.organization) ? 'Manager' : 'Employee' -%></p>
+                <p><strong>Email:</strong> <%= @user.account.email -%></p>
+                <p><strong>Temp Password:</strong> <%= Invite.find_by_email(@user.account.email).identifier[0, 10] -%></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="projects">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Project Name</th>
+              <th>Project #</th>
+              <th>Organization</th>
+              <th>
+                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addUserToProject">Select Projects</button>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <%- @projects.each do |project| -%>
+              <tr>
+                <td><%= project.name -%></td>
+                <td><%= project.identifier -%></td>
+                <td><%= project.organizations.pluck(:name).to_a.join(' | ') -%></td>
+                <td>
+                  <%= link_to 'Remove From Project', remove_user_from_project_path(@user, project), method: :post, class: 'btn btn-warning btn-sm' -%>
+                </td>
+              </tr>
+            <%- end -%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
+<%= render 'add_user_to_project_modal' -%>

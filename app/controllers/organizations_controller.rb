@@ -5,7 +5,10 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations
   def index
+    redirect_to edit_user_path(current_account.user) if current_account.sign_in_count == 1
     @organization = current_account.user.organization
+    projects = Project.with_role(:employee, current_account).pluck(:id)
+    @authorize_orgs = Project.where(owner_id: @organization, id: projects).joins(:project_orgs).pluck(:organization_id)
   end
 
   # GET /organizations/1

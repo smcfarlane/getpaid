@@ -4,15 +4,15 @@
   <%= render 'layouts/head' -%>
 </head>
 <body>
-<%= render 'layouts/dashboard_nav' -%>
 <!--<p class="notice"><%= notice %></p>-->
 <!--<p class="alert"><%= alert %></p>-->
 <div class="container-fluid top-20">
   <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar">
+    <div class="col-sm-3 col-md-2 sidebar z-depth-2">
       <%= render 'layouts/dashboard_sidebar_nav' -%>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+      <%= render 'layouts/dashboard_nav' -%>
       <%= yield %>
     </div>
   </div>

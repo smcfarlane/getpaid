@@ -1,0 +1,27 @@
+<div class="modal fade" id="addUserToOrg" tabindex="-1" role="dialog" aria-labelledby="inviteUser">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addUserToOrg">Select the organizations this user can manage</h4>
+      </div>
+      <%= form_tag(select_orgs_for_user_path(@user)) do -%>
+        <div class="modal-body">
+          <%- @all_organizations.each do |org| -%>
+          <div class="form-group col-md-6">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="orgs[]" value="<%= org.id -%>"> <%= org.name -%>
+              </label>
+            </div>
+          </div>
+          <%- end -%>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Ok</button>
+        </div>
+      <%- end -%>
+    </div>
+  </div>
+</div>
