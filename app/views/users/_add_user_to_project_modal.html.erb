@@ -1,27 +1,33 @@
-<div class="modal fade" id="addUserToProject" tabindex="-1" role="dialog" aria-labelledby="inviteUser">
-  <div class="modal-dialog" role="document">
+
+<!-- Modal Structure -->
+<div id="addUserToProject" class="modal">
+  <%= form_tag(select_projects_for_user_path(@user)) do -%>
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="addUserToProject">Select the projects this user can manage</h4>
+        <h4 class="modal-title">Select the projects this user can manage</h4>
       </div>
-      <%= form_tag(select_projects_for_user_path(@user)) do -%>
-        <div class="modal-body">
-          <%- @all_projects.each do |project| -%>
-          <div class="form-group col-md-6">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" name="projects[]" value="<%= project.id -%>"> <%= project.name -%> <br/> <%= project.identifier -%>
-              </label>
+
+        <div class="row">
+          <%- @all_projects.each_with_index do |project, i| -%>
+            <%- '</div><div class="row">III'.html_safe if (i + 1) % 3 == 0 -%>
+            <div class="input-field col s4">
+              <div class="checkbox">
+                <input type="checkbox" id="project<%= project.id -%>" name="projects[]" value="<%= project.id -%>">
+                <label for="project<%= project.id -%>"><%= project.name -%> <br/> <%= project.identifier -%></label>
+              </div>
             </div>
-          </div>
           <%- end -%>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Ok</button>
-        </div>
-      <%- end -%>
+
     </div>
-  </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-primary">Ok</button>
+    </div>
+  <%- end -%>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    $('.modal-trigger').leanModal();
+  });
+</script>

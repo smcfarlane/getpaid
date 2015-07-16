@@ -38,11 +38,11 @@ class UsersController < AuthorizeController
   end
 
   def show
-    @all_projects = current_account.user.organization.projects
+    @all_projects = current_account.user.organization.projects.includes(:organizations)
     if @user.account.has_role?(:manager, current_account.user.organization)
       @projects = @all_projects
     else
-      @projects = Project.with_role(:employee, @user.account)
+      @projects = Project.includes(:organizations).with_role(:employee, @user.account)
     end
   end
 
