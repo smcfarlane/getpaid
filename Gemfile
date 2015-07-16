@@ -38,13 +38,14 @@ gem 'prawn'
 gem 'prawn-table'
 
 # Use Unicorn as the app server
-gem 'unicorn'
+#gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 group :production do
   gem 'rails_12factor'
+  gem 'puma'
 end
 
 group :development, :test do

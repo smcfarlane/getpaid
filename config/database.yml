@@ -80,6 +80,7 @@ test:
 #
 production:
   <<: *default
+  url: postgres://hluvyuehaawkhu:LWh0ZAB-G1hD7bLnf0QgQSB7_D@ec2-54-235-145-226.compute-1.amazonaws.com:5432/d9l7dhh60sj15t
   database: getpaid_production
   username: getpaid
   password: <%= ENV['GETPAID_DATABASE_PASSWORD'] %>
