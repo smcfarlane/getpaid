@@ -6,17 +6,59 @@
 <body>
 <!--<p class="notice"><%= notice %></p>-->
 <!--<p class="alert"><%= alert %></p>-->
-<div class="container-fluid top-20">
-  <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar z-depth-2">
-      <%= render 'layouts/dashboard_sidebar_nav' -%>
+<header>
+  <nav class="top-nav light-blue">
+    <div class="container">
+      <div class="nav-wrapper"><a class="page-title"><h3 class="truncate" style="margin: 0; padding-top: 32px;"><%= @page_title -%></h3></a></div>
     </div>
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-      <%= render 'layouts/dashboard_nav' -%>
-      <%= yield %>
-    </div>
+  </nav>
+  <div class="container">
+    <a href="#" data-activates="slide-out" class="button-collapse top-nav full hide-on-large-only">
+      <i class="mdi-navigation-menu"></i>
+    </a>
   </div>
-</div>
+  <ul id="slide-out" class="side-nav fixed">
+    <li id="logo-contianer" class="logo"><a href="/"><h2 class="amber-text">GetPaid</h2></a></li>
+
+    <%- if current_account.user -%>
+      <%- if current_account.user.organization -%>
+        <li <%- if current_page? organizations_path -%>class="active"<%- end -%>><%= link_to 'Clients & Vendors', organizations_path -%></li>
+        <li <%- if current_page? organization_projects_path(current_account.user.organization) -%>class="active"<%- end -%>><%= link_to 'Projects', organization_projects_path(current_account.user.organization) -%></li>
+        <li <%- if current_page? invoices_path -%>class="active manager-menu"<%- else -%>class="manager-menu"<%- end -%>><%= link_to 'Invoices', invoices_path -%></li>
+      <%- else -%>
+        <li><span class="navbar-text" style="width: 100%;">Clients & Vendors</span></li>
+        <li><span class="navbar-text" style="width: 100%;">Projects</span></li>
+        <li class="manager-menu"><span class="navbar-text" style="width: 100%;">Invoices</span></li>
+      <%- end -%>
+    <%- else -%>
+      <li><span class="navbar-text" style="width: 100%;">Clients & Vendors</span></li>
+      <li><span class="navbar-text" style="width: 100%;">Projects</span></li>
+      <li class="manager-menu"><span class="navbar-text" style="width: 100%;">Invoices</span></li>
+    <%- end -%>
+    <%- if current_account.has_role? :admin -%>
+      <li><%= link_to 'Manage Users', all_users_path -%></li>
+      <li class="manager-menu"><a href="#">Reports</a></li>
+    <%- end -%>
+    <%- if current_account.has_role? :manager, current_account.user.organization -%>
+      <li><%= link_to 'Manage Users', users_path -%></li>
+      <li class="manager-menu"><a href="#">Reports</a></li>
+    <%- end -%>
+    <%- unless current_account -%>
+      <li><%= link_to 'Sign Up', new_account_registration_path  -%></li>
+      <li><%= link_to 'Sign In', new_account_session_path -%></li>
+    <%- end -%>
+    <%- if current_account -%>
+      <li><%= link_to 'Profile', edit_user_path(current_account.user) -%></li>
+      <li><%= link_to 'Sign Out', destroy_account_session_path, method: :delete -%></li>
+    <%- end -%>
+  </ul>
+</header>
+
+
+<main class="top-20">
+  <%= yield %>
+</main>
+
 
 </body>
 </html>

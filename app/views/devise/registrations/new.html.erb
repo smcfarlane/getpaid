@@ -1,46 +1,39 @@
 <div class="container">
   <div class="row top-100">
-    <div class="col-md-offset-3 col-md-6">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2>Sign up --</h2>
-        </div>
-        <div class="panel-body">
+    <div class="col s6 offset-s3">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title grey-text text-darken-4">Sign Up</span>
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <%= devise_error_messages! %>
 
-            <fieldset>
-              <div class="form-group">
-                <%= f.label :email %><br />
-                <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+              <div class="input-field">
+                <%= f.label :email %>
+                <%= f.email_field :email, autofocus: true %>
               </div>
 
-              <div class="form-group">
+              <div class="input-field">
                 <%= f.label :password %>
                 <% if @validatable %>
                   <em>(<%= @minimum_password_length %> characters minimum)</em>
-                <% end %><br />
-                <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+                <% end %>
+                <%= f.password_field :password, autocomplete: "off" %>
               </div>
 
-              <div class="form-group">
-                <%= f.label :password_confirmation %><br />
-                <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
+              <div class="input-field">
+                <%= f.label :password_confirmation %>
+                <%= f.password_field :password_confirmation, autocomplete: "off" %>
               </div>
-            </fieldset>
 
-            <div class="actions">
-              <%= f.submit "Sign up", class: "btn btn-primary" %>
+            <div class="card-action">
+              <button class="waves-effect waves-light btn light-blue accent-4" name="commit" value="Sign up" type="submit">Sign Up</button>
+              <div class="right">
+                <%= render "devise/shared/links" %>
+              </div>
             </div>
           <% end %>
-          <div class="pull-right">
-            <%= render "devise/shared/links" %>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
-

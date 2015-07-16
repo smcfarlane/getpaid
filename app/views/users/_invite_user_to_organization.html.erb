@@ -1,46 +1,103 @@
-<div class="modal fade" id="inviteUser" tabindex="-1" role="dialog" aria-labelledby="inviteUser">
-  <div class="modal-dialog" role="document">
+<!--<div class="modal fade" id="inviteUser" tabindex="-1" role="dialog" aria-labelledby="inviteUser">-->
+  <!--<div class="modal-dialog" role="document">-->
+    <!--<div class="modal-content">-->
+      <!--<div class="modal-header">-->
+        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+        <!--<h4 class="modal-title" id="addToProjectModalLabel">Invite New User</h4>-->
+      <!--</div>-->
+      <!--<%= form_tag(invite_user_path) do -%>-->
+        <!--<div class="modal-body">-->
+          <!--<div class="form-group">-->
+            <!--<label for="">Enter a email</label>-->
+            <!--<input type="text" name="invite[email]" id="email" class="form-control"/>-->
+          <!--</div>-->
+          <!--<div class="form-inline">-->
+            <!--<div class="form-group">-->
+              <!--<label for="firstname">First Name</label><br/>-->
+              <!--<input type="text" name="invite[first_name]" id="firstname" class="form-control"/>-->
+            <!--</div>-->
+            <!--<div class="form-group">-->
+              <!--<label for="lastname">Last Name</label><br/>-->
+              <!--<input type="text" name="invite[last_name]" id="lastname" class="form-control"/>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="form-group">-->
+            <!--<label for="kind">Type of User</label><br/>-->
+            <!--<select name="invite[kind]" id="kind">-->
+              <!--<option value="employee">Employee</option>-->
+              <!--<option value="client">Client</option>-->
+              <!--<option value="vendor">Vendor</option>-->
+            <!--</select>-->
+          <!--</div>-->
+          <!--<div class="form-group select-org">-->
+            <!--<label for="org">Organization they belong to</label><br/>-->
+            <!--<%= select_tag 'invite[organization_id]', options_for_select(current_account.user.organization.all_related_orgs(with_names: true)) -%>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="modal-footer">-->
+          <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+          <!--<button type="submit" class="btn btn-primary">Add to Project</button>-->
+        <!--</div>-->
+      <!--<%- end -%>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+
+<!-- Modal Structure -->
+<div id="inviteUser" class="modal">
+  <%= form_tag(invite_user_path) do -%>
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="addToProjectModalLabel">Invite New User</h4>
       </div>
-      <%= form_tag(invite_user_path) do -%>
+
         <div class="modal-body">
-          <div class="form-group">
-            <label for="">Enter a email</label>
-            <input type="text" name="invite[email]" id="email" class="form-control"/>
+          <div class="row">
+            <div class="input-field col s12">
+              <label for="">Enter a email</label>
+              <input type="text" name="invite[email]" id="email" class="form-control"/>
+            </div>
           </div>
-          <div class="form-inline">
-            <div class="form-group">
+
+          <div class="row">
+            <div class="input-field col s6">
               <label for="firstname">First Name</label><br/>
               <input type="text" name="invite[first_name]" id="firstname" class="form-control"/>
             </div>
-            <div class="form-group">
+            <div class="input-field col s6">
               <label for="lastname">Last Name</label><br/>
               <input type="text" name="invite[last_name]" id="lastname" class="form-control"/>
             </div>
           </div>
-          <div class="form-group">
-            <label for="kind">Type of User</label><br/>
-            <select name="invite[kind]" id="kind">
-              <option value="employee">Employee</option>
-              <option value="client">Client</option>
-              <option value="vendor">Vendor</option>
-            </select>
+
+          <div class="row">
+            <div class="input-field">
+              <label for="kind">Type of User</label><br/>
+              <select name="invite[kind]" id="kind">
+                <option value="employee">Employee</option>
+                <option value="client">Client</option>
+                <option value="vendor">Vendor</option>
+              </select>
+            </div>
           </div>
-          <div class="form-group select-org">
-            <label for="org">Organization they belong to</label><br/>
-            <%= select_tag 'invite[organization_id]', options_for_select(current_account.user.organization.all_related_orgs(with_names: true)) -%>
+
+          <div class="row">
+            <div class="input-field select-org">
+              <label for="org">Organization they belong to</label><br/>
+              <%= select_tag 'invite[organization_id]', options_for_select(current_account.user.organization.all_related_orgs(with_names: true)) -%>
+            </div>
           </div>
+
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Add to Project</button>
-        </div>
-      <%- end -%>
     </div>
-  </div>
+
+    <div class="modal-footer">
+      <button type="submit" class="btn">Add to Project</button>
+    </div>
+  <%- end -%>
+
   <script>
     $(document).ready(function() {
       $('.select-org').css('display', 'none');
@@ -53,7 +110,9 @@
         } else {
           $('.select-org').css('display', 'block')
         }
-      })
+      });
+      $('select').material_select();
+      $('.modal-trigger').leanModal();
     })
   </script>
 </div>

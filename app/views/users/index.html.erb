@@ -1,13 +1,10 @@
+<%- @page_title = 'Manage Users' -%>
+
 <div class="container">
   <div class="row">
-    <h2>Users</h2>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inviteUser">Invite New User</button>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
-      <table class="table">
+    <div class="col s12">
+      <button type="button" class="btn modal-trigger" data-toggle="modal" data-target="inviteUser">Invite New User</button>
+      <table class="hoverable">
         <thead>
         <tr>
           <th>Name</th>
@@ -19,7 +16,7 @@
         </thead>
         <tbody>
         <%- @users.each do |user| -%>
-          <tr>
+          <tr data-link="<%= user_path(user) -%>" style="cursor: pointer">
             <td><%= user.first_name.titlecase -%> <%= user.last_name.titlecase -%></td>
             <td><%= 'manager' if user.account.has_role? :manager, current_account.user.organization -%></td>
             <td><%= user.account.email -%></td>
@@ -27,9 +24,8 @@
             <td>
               <%- unless current_account.user == user -%>
               <div class="btn-group">
-                <%= link_to 'View', user_path(user), class: 'btn btn-info btn-xs' -%>
-                <%= link_to 'Make Manager', make_user_manager_path(user), method: :post, class: 'btn btn-primary btn-xs' -%>
-                <%= link_to 'Delete User', user_path(user), method: :delete, confirm: 'Are you sure?', class: 'btn btn-danger btn-xs' -%>
+                <%= link_to 'Make Manager', make_user_manager_path(user), method: :post, class: 'rpad-10', style: 'text-decoration: underline;' -%>
+                <%= link_to '', user_path(user), method: :delete, confirm: 'Are you sure?', class: 'mdi-action-delete' -%>
               </div>
               <%- end -%>
             </td>

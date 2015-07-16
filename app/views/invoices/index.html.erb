@@ -1,9 +1,7 @@
+<%- @page_title = 'Invoices' -%>
 <div class="container">
   <div class="row">
-    <h1>Invoices</h1>
-  </div>
-  <div class="row">
-    <table class="table table-hover">
+    <table class="hoverable">
       <thead>
       <tr>
         <th>Organization</th>
@@ -28,8 +26,8 @@
           <td><%= number_to_currency(invoice.line_items.sum(:amount)) -%></td>
           <td>
             <div class="btn-group pull-right">
-              <%= link_to 'Edit', edit_invoice_path(invoice), class: 'btn btn-warning btn-xs' -%>
-              <%= link_to 'Remove', invoice_path(invoice), method: :delete, data: {confirm: 'Are you sure'}, class: 'btn btn-danger btn-xs' -%>
+              <%= link_to 'Edit', edit_invoice_path(invoice), class: 'rpad-10' -%>
+              <%= link_to '', invoice_path(invoice), method: :delete, data: {confirm: 'Are you sure'}, class: 'mdi-action-delete' -%>
             </div>
           </td>
         </tr>

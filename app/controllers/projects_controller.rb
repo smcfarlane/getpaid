@@ -80,9 +80,8 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    result = params.require(:project).permit(:name, :identifier, start_date: [:day, :month, :year], end_date: [:day, :month, :year])
-    {name: result[:name], identifier: result[:identifier],
-     start_date: Date.new(result[:start_date][:year].to_i, result[:start_date][:month].to_i, result[:start_date][:day].to_i),
-     end_date: Date.new(result[:end_date][:year].to_i, result[:end_date][:month].to_i, result[:end_date][:day].to_i), owner_id: current_account.user.organization.id}
+    result = params.require(:project).permit(:name, :identifier, :start_date, :end_date)
+    {name: result[:name], identifier: result[:identifier], start_date: Date.parse(result[:start_date]),
+     end_date: Date.parse(result[:end_date]), owner_id: current_account.user.organization.id}
   end
 end

@@ -1,20 +1,31 @@
+@import "materialize/components/color";
+$primary-color: color("light-blue", "base") !default;
+$primary-color-light: lighten($primary-color, 15%) !default;
+$primary-color-dark: darken($primary-color, 15%) !default;
+
+$secondary-color: color("amber", "lighten-1") !default;
+$success-color: color("green", "base") !default;
+$error-color: color("red", "base") !default;
+$link-color: color("light-blue", "darken-4") !default;
+
 @import "materialize";
-
-@import "bootstrap-sprockets";
-
-// Import cerulean variables
-@import "bootswatch/paper/variables";
-
-// Then bootstrap itself
-@import "bootstrap";
-
-// Bootstrap body padding for fixed navbar
-body { padding-top: 76px; }
-
-// And finally bootswatch style itself
-@import "bootswatch/paper/bootswatch";
-@import "dashboard";
 @import "invoices";
+
+//@import "bootstrap-sprockets";
+//
+//// Import cerulean variables
+//@import "bootswatch/paper/variables";
+//
+//// Then bootstrap itself
+//@import "bootstrap";
+//
+//// Bootstrap body padding for fixed navbar
+//body { padding-top: 76px; }
+//
+//// And finally bootswatch style itself
+//@import "bootswatch/paper/bootswatch";
+//@import "dashboard";
+//@import "invoices";
 
 .top-5 {margin-top: 5px !important}
 .top-10 {margin-top: 10px}
@@ -34,34 +45,66 @@ body { padding-top: 76px; }
 .bottom-60 {margin-bottom: 60px}
 .bottom-100 {margin-bottom: 100px}
 
-table, .table {
-  font-size: 16px !important;
-}
 
-//table > thead, .table > thead {
-//  border-bottom: 3px solid #4E5D6C;
-//}
 
 .state-field {
   width: 60px;
 }
 
-.z-depth-1 {
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12) !important;
+body {
+  background-color: #fcfcfc;
 }
 
-.z-depth-2 {
-  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+header, main, footer {
+  padding-left: 240px;
 }
 
-.z-depth-3 {
-  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19) !important;
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
 }
 
-.z-depth-4 {
-  box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21) !important;
+ul.side-nav.fixed li.logo {
+  text-align: center;
+  margin-top: 32px;
+  border-bottom: 1px solid #ddd;
+  height: 80px;
+  margin-bottom: 32px;
 }
 
-.z-depth-5 {
-  box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22) !important;
+ul.side-nav.fixed li.logo:hover {
+  background-color: transparent;
+}
+
+.manager-menu {
+  border-bottom: 1px solid #ddd;
+}
+
+.hoverable:hover {
+  transition: box-shadow .25s;
+  box-shadow: none;
+}
+
+nav.top-nav {
+  height: 111px;
+  box-shadow: none;
+}
+
+a.btn {
+  color: #fff !important;
+}
+
+.tabs {
+  background-color: #fcfcfc;
+}
+
+.card .card-title {
+  color: #212121;
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.rpad-10 {
+  padding-right: 10px;
 }

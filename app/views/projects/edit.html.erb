@@ -1,7 +1,10 @@
+<%- if current_page? new_project_without_org_path
+      @page_title = "Edit Project with #{@organization.name}"
+    else
+      @page_title = 'Edit Project'
+    end -%>
+
 <div class="container">
-  <div class="row">
-    <h1>Edit Project "<%= @project.name -%>" with <%= @organization.name -%></h1>
-  </div>
   <div class="row">
     <%= render 'form' -%>
   </div>

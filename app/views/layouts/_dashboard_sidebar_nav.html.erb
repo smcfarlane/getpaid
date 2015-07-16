@@ -16,14 +16,7 @@
   <%- end -%>
 </ul>
 <ul class="nav nav-sidebar">
-  <%- if current_account.has_role? :admin -%>
-    <li><%= link_to 'Manage Users', all_users_path -%></li>
-    <li><a href="#">Reports</a></li>
-  <%- end -%>
-  <%- if current_account.has_role? :manager, current_account.user.organization -%>
-    <li><%= link_to 'Manage Users', users_path -%></li>
-    <li><a href="#">Reports</a></li>
-  <%- end -%>
+
 </ul>
 
 

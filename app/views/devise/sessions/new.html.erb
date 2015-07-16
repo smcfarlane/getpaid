@@ -1,38 +1,44 @@
 <div class="container">
   <div class="row top-100">
-    <div class="col-md-6 col-md-offset-3">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h2>Log in</h2>
-        </div>
-        <div class="panel-body">
+    <div class="col s6 offset-s3">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title grey-text text-darken-4">
+            <h3>Log in</h3>
+          </span>
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
             <%= devise_error_messages! %>
-            <div class="form-group">
-              <%= f.label :email %><br />
-              <%= f.email_field :email, autofocus: true, class: "form-control" %>
+            <div class="row">
+              <div class="input-field">
+                <%= f.label :email %><br />
+                <%= f.email_field :email, autofocus: true %>
+              </div>
             </div>
 
-            <div class="form-group">
-              <%= f.label :password %><br />
-              <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+            <div class="row">
+              <div class="input-field">
+                <%= f.label :password %><br />
+                <%= f.password_field :password, autocomplete: "off" %>
+              </div>
             </div>
 
             <% if devise_mapping.rememberable? -%>
-              <div class="form-group">
-                <%= f.check_box :remember_me %>
-                <%= f.label :remember_me %>
+              <div class="row">
+                <div class="input-field">
+                  <%= f.check_box :remember_me %>
+                  <%= f.label :remember_me %>
+                </div>
               </div>
             <% end -%>
 
-            <div class="actions">
-              <%= f.submit "Log in", class: "btn btn-primary" %>
+            <div class="card-action">
+              <button type="submit" name="commit" value="Log in" class="waves-effect waves-light btn  light-blue accent-4">Log In</button>
+              <div class="right">
+                <%= render "devise/shared/links" %>
+              </div>
             </div>
           <% end %>
 
-          <div class="pull-right">
-            <%= render "devise/shared/links" %>
-          </div>
         </div>
       </div>
     </div>

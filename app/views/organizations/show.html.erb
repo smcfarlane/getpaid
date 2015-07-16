@@ -1,68 +1,75 @@
-
+<%- @page_title = "#{@kind.titlecase }: #{@organization.name}" -%>
 <div class="container">
   <%= link_to '< Back', organizations_path %>
-  <div class="row">
-    <div class="col-md-10">
-      <h1><%= @organization.name -%></h1>
-      <h2><%= @kind.titlecase -%></h2>
-    </div>
-  </div>
-  <div class="col-md-8">
-    <div class="row">
-      <h2>Projects</h2>
-    </div>
-    <div class="row">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Id</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <%- (@organization.projects & current_account.user.organization.owned_projects).each do |project| -%>
-          <tr data-link="<%= organization_project_path(@organization, project) -%>" style="cursor: pointer">
-            <td><%= project.name.titlecase -%></td>
-            <td><%= project.identifier -%></td>
-            <td><%= project.start_date.strftime('%D') -%></td>
-            <td><%= project.end_date.strftime('%D') -%></td>
-            <td>
-              <div class="btn-group pull-right">
-                <%= link_to 'Edit', edit_organization_project_path(@organization, project), class: 'btn btn-warning btn-xs' -%>
-                <%= link_to 'Remove', organization_project_path(@organization, project), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger btn-xs' -%>
-              </div>
-            </td>
-          </tr>
-          <%- end -%>
-          <%- if @organization.projects.empty? -%>
-          <tr>
-            <td colspan="4" class="text-center">None</td>
-          </tr>
-          <%- end -%>
-        </tbody>
-      </table>
-    </div>
-    <div class="row">
-      <div class="btn-group">
-        <%= link_to 'Add Project', new_organization_project_path(@organization), class: 'btn btn-default' -%>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addToProjectModal">Add to Project</button>
+  <div class="col s12">
+
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title"><h3>Contact Information</h3></span>
+        <div class="row">
+          <div class="col s6">
+            <h4>Address</h4>
+            <%- a = @organization.addresses[0] -%>
+            <p><%= a.street_address -%> <br/>
+              <%= a.street_address2 -%> <br/>
+              <%= a.city -%>, <%= a.state -%> <%= a.zip -%></p>
+          </div>
+          <div class="col s6">
+            <h4>Phone Number</h4>
+            <p><%= @organization.phones[0].phone_number -%></p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-4">
-      <h2>Contact Information</h2>
-      <h3>Address</h3>
-      <%- a = @organization.addresses[0] -%>
-      <p><%= a.street_address -%> <br/>
-         <%= a.street_address2 -%> <br/>
-         <%= a.city -%>, <%= a.state -%> <%= a.zip -%></p>
-      <h3>Phone Number</h3>
-      <p><%= @organization.phones[0].phone_number -%></p>
+
+    <div class="row">
+
+      <div class="col s12">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title"><h3>Projects</h3></span>
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Id</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+              <%- (@organization.projects & current_account.user.organization.owned_projects).each do |project| -%>
+                <tr data-link="<%= organization_project_path(@organization, project) -%>" style="cursor: pointer">
+                  <td><%= project.name.titlecase -%></td>
+                  <td><%= project.identifier -%></td>
+                  <td><%= project.start_date.strftime('%D') -%></td>
+                  <td><%= project.end_date.strftime('%D') -%></td>
+                  <td>
+                    <div class="btn-group pull-right">
+                      <%= link_to 'Edit', edit_organization_project_path(@organization, project) -%>
+                      <%= link_to '', organization_project_path(@organization, project), method: :delete, data: {confirm: 'Are you sure?'}, class: 'mdi-action-delete' -%>
+                    </div>
+                  </td>
+                </tr>
+              <%- end -%>
+              <%- if @organization.projects.empty? -%>
+                <tr>
+                  <td colspan="4" class="text-center">None</td>
+                </tr>
+              <%- end -%>
+              </tbody>
+            </table>
+            <div class="card-action">
+              <%= link_to 'Add Project', new_organization_project_path(@organization), class: 'btn btn-default' -%>
+              <button data-target="addToProjectModal" class="waves-effect waves-light btn modal-trigger">Add to Project</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
+
 </div>
 <%= render 'add_to_project_modal' -%>

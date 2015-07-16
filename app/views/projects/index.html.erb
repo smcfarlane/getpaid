@@ -1,14 +1,12 @@
+<%- @page_title = "Projects for #{@organization.name}" -%>
 <div class="container">
   <div class="row">
-    <div class="col-md-8">
-      <h1>Projects for <%= @organization.name -%></h1>
-    </div>
-    <div class="col-md-4">
+    <div class="col s3 offset-s9">
       <%= link_to 'New Project', new_project_without_org_path, class: 'btn btn-primary pull-right', style: 'margin-top: 21px' -%>
     </div>
   </div>
   <div class="row">
-    <table class="table table-hover">
+    <table class="hoverable">
       <thead>
       <tr>
         <th></th>
@@ -29,8 +27,8 @@
           <td><%= project.end_date.strftime('%D') -%></td>
           <td>
             <div class="btn-group pull-right">
-              <%= link_to 'Edit', edit_organization_project_path(@organization, project), class: 'btn btn-warning btn-xs' -%>
-              <%= link_to 'Remove', organization_project_path(@organization, project), method: :delete, data: {confirm: 'Are you sure?'}, class: 'btn btn-danger btn-xs' -%>
+              <%= link_to 'Edit', edit_organization_project_path(@organization, project) -%>
+              <%= link_to '', organization_project_path(@organization, project), method: :delete, data: {confirm: 'Are you sure?'}, class: 'mdi-action-delete' -%>
             </div>
           </td>
         </tr>

@@ -1,26 +1,56 @@
-<div class="modal fade" id="email-client-modal" tabindex="-1" role="dialog" aria-labelledby="emailClientModal">
-  <div class="modal-dialog" role="document">
-    <%= form_tag email_client_invoice_path(@invoice) do -%>
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Email <%= @invoice.to_org.name -%> their invoice</h4>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="to">To</label>
-            <input type="text" name="to" class="form-control" value="<%= @invoice.to_org.emails[0].email -%>"/>
-          </div>
-          <div class="form-group">
-            <label for="">From</label>
-            <input type="text" name="from" class="form-control" value="<%= current_account.email -%>"/>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Email Client</button>
-        </div>
+<!--<div class="modal fade" id="email-client-modal" tabindex="-1" role="dialog" aria-labelledby="emailClientModal">-->
+  <!--<div class="modal-dialog" role="document">-->
+    <!--<%= form_tag email_client_invoice_path(@invoice) do -%>-->
+      <!--<div class="modal-content">-->
+        <!--<div class="modal-header">-->
+          <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+          <!--<h4 class="modal-title" id="myModalLabel">Email <%= @invoice.to_org.name -%> their invoice</h4>-->
+        <!--</div>-->
+        <!--<div class="modal-body">-->
+          <!--<div class="form-group">-->
+            <!--<label for="to">To</label>-->
+            <!--<input type="text" name="to" class="form-control" value="<%= @invoice.to_org.emails[0].email -%>"/>-->
+          <!--</div>-->
+          <!--<div class="form-group">-->
+            <!--<label for="">From</label>-->
+            <!--<input type="text" name="from" class="form-control" value="<%= current_account.email -%>"/>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="modal-footer">-->
+          <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+          <!--<button type="submit" class="btn btn-primary">Email Client</button>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--<%- end -%>-->
+  <!--</div>-->
+<!--</div>-->
+
+<!-- Modal Structure -->
+<div id="email-client-modal" class="modal">
+  <div class="modal-content">
+    <div class="row">
+      <a class="modal-close right"><span>&times;</span></a>
+      <h4 class="modal-title" id="myModalLabel">Email <%= @invoice.to_org.name -%> their invoice</h4>
+    </div>
+    <div class="modal-body">
+      <div class="input-field">
+        <label for="to">To</label>
+        <input type="text" name="to" class="form-control" value="<%= @invoice.to_org.emails[0].email -%>"/>
       </div>
-    <%- end -%>
+      <div class="input-field">
+        <label for="">From</label>
+        <input type="text" name="from" class="form-control" value="<%= current_account.email -%>"/>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="modal-action modal-close waves-effect btn waves-green">Email Client</button>
   </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+</script>
