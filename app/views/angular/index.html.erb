@@ -1,0 +1,30 @@
+
+<md-sidenav class="main-nav md-defualt-theme site-sidenav md-sidenav-left md-whiteframe-z2 md-closed ng-isolate-scope md-locked-open" md-component-id="left"
+            md-is-locked-open="$mdMedia('gt-sm')">
+  <header>
+    <div class="logo">
+      <i class="fa fa-money fa-5"></i>
+      <h1>Get Paid</h1>
+    </div>
+  </header>
+  <md-content class="menu" ng-controller="MenuCtrl as vm">
+    <ul ng-repeat="menu in vm.menuItems.guest" class="menu-list">
+      <li ng-repeat="item in menu">
+        <md-button ui-sref="{{item[1]}}">
+          {{item[0]}}
+        </md-button>
+      </li>
+    </ul>
+  </md-content>
+
+</md-sidenav>
+<div layout="column" role="main" flex>
+  <md-toolbar class="md-whiteframe-glow-z1 site-content-toolbar md-default-theme">
+
+  </md-toolbar>
+  <md-content class="md-default-theme">
+    <ui-view>
+
+    </ui-view>
+  </md-content>
+</div>

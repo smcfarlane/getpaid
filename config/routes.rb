@@ -33,7 +33,8 @@ Rails.application.routes.draw do
 
   devise_for :accounts, controllers: { registrations: "registrations" }
 
-  root 'welcome#home'
+  root 'angular#index'
+  #root 'welcome#home'
   get 'welcome/features'
   get 'welcome/about'
 

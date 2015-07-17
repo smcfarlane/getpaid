@@ -1,0 +1,22 @@
+{
+  "name": "getpaid",
+  "version": "1.0.0",
+  "homepage": "https://github.com/smcfarlane/getpaid",
+  "authors": [
+    "stevenmcfarlane <stevemac72@gmail.com>"
+  ],
+  "directory": "vendor/assets/bower_components",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.3",
+    "angular-ui-router": "~0.2.15",
+    "angular-material": "~0.10.0"
+  }
+}

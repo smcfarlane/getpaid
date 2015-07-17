@@ -7,10 +7,11 @@ gem 'rails', '4.2.1'
 gem 'pg'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-gem 'materialize-sass'
-gem 'bootstrap-sass'
-gem 'bootswatch-rails'
-gem 'react-rails'
+#gem 'materialize-sass'
+#gem 'bootstrap-sass'
+#gem 'bootswatch-rails'
+gem 'angular-rails-templates', '< 2.0'
+gem 'font-awesome-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -33,6 +34,7 @@ gem 'devise'
 gem 'cancancan'
 gem 'rolify'
 gem 'will_paginate-bootstrap'
+
 
 gem 'prawn'
 gem 'prawn-table'

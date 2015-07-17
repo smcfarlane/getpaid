@@ -13,6 +13,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery
-//= require materialize-sprockets
+//= //require materialize-sprockets
 //= //require bootstrap-sprockets
-//= require_tree .
+//= require angular
+//= require angular-ui-router
+//= require angular-animate
+//= require angular-material
+//= require angular-aria
+//= require angular-rails-templates
+//= require app
+//= require_tree ./templates
+//= require_tree ./app
