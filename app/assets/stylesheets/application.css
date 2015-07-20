@@ -21,11 +21,14 @@ body {
 }
 
 .main-nav {
-    background-color: #2979FF;
+}
+
+.site-sidenav {
+    background-color: #009688;
 }
 
 .menu {
-    background-color: #2979FF;
+    background-color: #009688;
     color: #fff;
     font-weight: 500;
     font-size: 2.0rem;

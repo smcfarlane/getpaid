@@ -1,5 +1,5 @@
 
-<md-sidenav class="main-nav md-defualt-theme site-sidenav md-sidenav-left md-whiteframe-z2 md-closed ng-isolate-scope md-locked-open" md-component-id="left"
+<md-sidenav class="main-nav md-defualt-theme md-primary site-sidenav md-sidenav-left md-whiteframe-z2 md-closed ng-isolate-scope md-locked-open" md-component-id="left"
             md-is-locked-open="$mdMedia('gt-sm')">
   <header>
     <div class="logo">
@@ -7,21 +7,24 @@
       <h1>Get Paid</h1>
     </div>
   </header>
-  <md-content class="menu" ng-controller="MenuCtrl as vm">
-    <ul ng-repeat="menu in vm.menuItems.guest" class="menu-list">
+  <md-content class="menu md-primary" ng-controller="MenuCtrl as vm">
+    <ul ng-repeat="menu in vm.menu" class="menu-list">
       <li ng-repeat="item in menu">
         <md-button ui-sref="{{item[1]}}">
           {{item[0]}}
         </md-button>
       </li>
     </ul>
+    <ul ng-show="vm.showSignOut" class="menu-list">
+      <li>
+        <md-button ng-click="vm.signOut()">Sign Out</md-button>
+      </li>
+    </ul>
+    <!--<button type="button" ng-click="vm.checkAuthStatus()">Check Auth Status</button>-->
   </md-content>
 
 </md-sidenav>
 <div layout="column" role="main" flex>
-  <md-toolbar class="md-whiteframe-glow-z1 site-content-toolbar md-default-theme">
-
-  </md-toolbar>
   <md-content class="md-default-theme">
     <ui-view>
 

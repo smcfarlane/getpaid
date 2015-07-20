@@ -1,0 +1,22 @@
+
+<div layout="row">
+    <md-card flex flex="50" offset="25">
+        <md-content class="md-padding">
+            <h3 class="md-title">Sign In</h3>
+            <form role="form">
+                <md-input-container>
+                    <label>email</label>
+                    <input type="email" name="email" ng-model="vm.loginForm.email" required="required"/>
+                </md-input-container>
+
+                <md-input-container>
+                    <label>password</label>
+                    <input type="password" name="password" ng-model="vm.loginForm.password" required="required"/>
+                </md-input-container>
+
+                <md-button type="submit" ng-click="vm.handleLoginBtnClick()" class="md-primary md-hue-2">Sign In</md-button>
+            </form>
+        </md-content>
+    </md-card>
+    <div flex="25"></div>
+</div>

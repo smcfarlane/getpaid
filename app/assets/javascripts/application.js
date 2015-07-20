@@ -20,7 +20,10 @@
 //= require angular-animate
 //= require angular-material
 //= require angular-aria
+//= require angular-cookie
+//= require ng-token-auth
 //= require angular-rails-templates
 //= require app
 //= require_tree ./templates
 //= require_tree ./app
+//= require_tree ./auth

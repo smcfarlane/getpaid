@@ -3,6 +3,7 @@ ruby '2.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
+gem 'rack-cors', :require => 'rack/cors'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
@@ -34,7 +35,8 @@ gem 'devise'
 gem 'cancancan'
 gem 'rolify'
 gem 'will_paginate-bootstrap'
-
+gem 'devise_token_auth'
+gem 'omniauth'
 
 gem 'prawn'
 gem 'prawn-table'

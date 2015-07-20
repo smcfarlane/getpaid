@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount_devise_token_auth_for 'Account', at: 'auth'
 
   get 'users/all' => 'users#index_all', as: :all_users
   post 'user/:id/make_manager' => 'users#make_manager', as: :make_user_manager
@@ -31,7 +32,7 @@ Rails.application.routes.draw do
     resources :projects
   end
 
-  devise_for :accounts, controllers: { registrations: "registrations" }
+  #devise_for :accounts, controllers: { registrations: "registrations" }
 
   root 'angular#index'
   #root 'welcome#home'

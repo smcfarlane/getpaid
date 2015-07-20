@@ -5,7 +5,7 @@
   "authors": [
     "stevenmcfarlane <stevemac72@gmail.com>"
   ],
-  "directory": "vendor/assets/bower_components",
+  "directory": "./vendor/assets/bower_components",
   "license": "MIT",
   "ignore": [
     "**/.*",
@@ -17,6 +17,8 @@
   "dependencies": {
     "angular": "~1.4.3",
     "angular-ui-router": "~0.2.15",
-    "angular-material": "~0.10.0"
+    "angular-material": "~0.10.0",
+    "ng-token-auth": "~0.0.25",
+    "angular-resource": "~1.4.3"
   }
 }

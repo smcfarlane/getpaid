@@ -1,9 +1,10 @@
 class Account < ActiveRecord::Base
-  rolify
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # Include default devise modules.
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+          :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable
+  include DeviseTokenAuth::Concerns::User
+  rolify
   has_one :user
   has_one :role
 end
