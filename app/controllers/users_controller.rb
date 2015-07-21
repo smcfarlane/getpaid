@@ -62,7 +62,10 @@ class UsersController < AuthorizeController
     unless current_account.user
       @user = User.create(get_new_user_params)
       if @user.save
-        redirect_to new_your_org_path
+        respond_to do |format|
+          format.html {redirect_to new_your_org_path}
+          format.json {@user}
+        end
       end
     else
       raise ActionController::RoutingError.new('Not Found')
@@ -76,7 +79,7 @@ class UsersController < AuthorizeController
   end
 
   def update
-    @user.update(get_new_user_params)
+    @user.update(get_update_user_params)
     if @user.save
       @user.account.sign_in_count += 1
       @user.account.save
@@ -98,7 +101,14 @@ class UsersController < AuthorizeController
   end
 
   def get_new_user_params
-    results = params.require(:user).permit(:account_id, :first_name, :last_name, phones_attributes: [:id, :phone_number], emails_attributes: [:id, :email], addresses_attributes: [:id, :street_address, :street_address2, :city, :state, :zip])
+    # results = params.require(:user).permit(:account_id, :first_name, :last_name, phones_attributes: [:phone_number], addresses_attributes: [:street_address, :street_address2, :city, :state, :zip])
+
+    r = params.permit(:account_id, :first_name, :last_name, :phone, :street_address, :street_address2, :city, :state, :zip)
+    {account_id: r[:account_id], first_name: r[:first_name], last_name: r[:last_name], phones_attributes: [{phone_number: r[:phone]}],  addresses_attributes: [street_address: r[:street_address], street_address2: r[:street_address2], city: r[:city], state: r[:state], zip: r[:zip]]}
+  end
+
+  def get_update_user_params
+    results = params.require(:user).permit(:account_id, :first_name, :last_name, phones_attributes: [:id, :phone_number], addresses_attributes: [:id, :street_address, :street_address2, :city, :state, :zip])
   end
 
 end

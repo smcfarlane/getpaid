@@ -18,6 +18,7 @@
 //= require angular
 //= require angular-ui-router
 //= require angular-animate
+//= require angular-resource
 //= require angular-material
 //= require angular-aria
 //= require angular-cookie
@@ -27,3 +28,6 @@
 //= require_tree ./templates
 //= require_tree ./app
 //= require_tree ./auth
+//= require_tree ./dashboard
+//= require_tree ./clients
+//= require_tree ./user

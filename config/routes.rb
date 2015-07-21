@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :clients
   mount_devise_token_auth_for 'Account', at: 'auth'
 
   get 'users/all' => 'users#index_all', as: :all_users

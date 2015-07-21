@@ -67,6 +67,12 @@ def create_line_items invoice_id: nil, item: nil, description: nil, amount: nil
   LineItem.create(invoice_id: invoice_id, item: item, description: description, amount: amount)
 end
 
+def create_account email: nil, password: 'password', password_confirmation: 'password'
+  email ||= Faker::Internet.safe_email
+  provider = 'email'
+  Account.create!(email: email, password: 'password', password_confirmation: 'password', uid: email, provider: provider)
+end
+
 # create users
 5.times do |i|
   fname = Faker::Name.first_name
@@ -84,7 +90,7 @@ end
   # email for user
     email = "#{fname}.#{lname}@#{org.name.gsub(/\W/, '')}.com"
   # create user account
-    account = Account.create!(email: email, password: 'password', password_confirmation: 'password')
+    account = create_account email: email
     account.add_role :manager, org
   # create user info
     user = User.create(first_name: fname, last_name: lname, organization: org, account: account)
@@ -112,7 +118,7 @@ p1.update_attribute :callable, admin_org
 # email for user
 email = "#{fname}.#{lname}@#{admin_org.name.gsub(/\W/, '')}.com"
 # create user account
-admin_account = Account.create!(email: email, password: 'password', password_confirmation: 'password')
+admin_account = create_account email: email
 # create user info
 admin = User.create(first_name: fname, last_name: lname, organization: admin_org, account: admin_account)
 # add an address, email, and phone number to user

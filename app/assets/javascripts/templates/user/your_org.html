@@ -1,0 +1,46 @@
+<md-content class="md-padding">
+    <div layout="row">
+        <md-card>
+            <md-content class="md-padding">
+                <h3 class="md-headline">Your Organization</h3>
+                <form>
+                    <p class="md-subhead">Name</p>
+                    <md-input-container>
+                        <label>Last Name</label>
+                        <input type="text" ng-model="vm.yourOrg.name" required="required"/>
+                    </md-input-container>
+                    <p class="md-subhead">Address</p>
+                    <md-input-container>
+                        <label>Street Address</label>
+                        <input type="text" ng-model="vm.yourOrg.street_address" required="required"/>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Street Address 2</label>
+                        <input type="text" ng-model="vm.yourOrg.street_address2" required="required"/>
+                    </md-input-container>
+                    <div layout="row">
+                        <md-input-container flex="40">
+                            <label>City</label>
+                            <input type="text" ng-model="vm.yourOrg.city" required="required"/>
+                        </md-input-container>
+                        <md-input-container flex="20">
+                            <label>State</label>
+                            <input type="text" ng-model="vm.yourOrg.state" required="required"/>
+                        </md-input-container>
+                        <md-input-container flex="40">
+                            <label>Zip</label>
+                            <input type="text" ng-model="vm.yourOrg.zip" required="required"/>
+                        </md-input-container>
+                    </div>
+                    <p class="md-subhead">Phone</p>
+                    <md-input-container>
+                        <label>Phone</label>
+                        <input type="text" ng-model="vm.yourOrg.phone_number"/>
+                    </md-input-container>
+                    <md-button type="submit" class="md-primary md-hue-2" ng-click="vm.clickSubmitYourOrg()">Ok</md-button>
+                </form>
+                {{vm.yourOrg}}
+            </md-content>
+        </md-card>
+    </div>
+</md-content>

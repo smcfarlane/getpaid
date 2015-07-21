@@ -65,9 +65,17 @@ class OrganizationsController < ApplicationController
       current_account.user.organization.vendors << @organization if params[:partner_type] == 'vendor'
       current_account.user.organization.clients << @organization if params[:partner_type] == 'client'
       redirect_to organizations_path
+      respond_to do |format|
+        format.html
+        format.json {render json: @organization}
+      end
     else
       @kind = params[:partner_type]
       render :edit
+      respond_to do |format|
+        format.html
+        format.json {render json: {error: @organization.errors}}
+      end
     end
   end
 
@@ -115,14 +123,14 @@ class OrganizationsController < ApplicationController
     end
 
     def org_params
-      params.require(:org).permit(:name)
+      params.permit(:name)
     end
 
     def address_params
-      params.require(:address).permit(:street_address, :street_address2, :city, :state, :zip)
+      params.permit(:street_address, :street_address2, :city, :state, :zip)
     end
 
     def phone_params
-      params.require(:phone).permit(:phone_number)
+      params.permit(:phone_number)
     end
 end

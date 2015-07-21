@@ -1,5 +1,5 @@
 (function(){
-  angular.module('getPaid').controller('MenuCtrl', ['$auth', '$rootScope', '$state', function($auth, $rootScope, $state){
+  angular.module('getPaid').controller('MenuCtrl', ['$auth', '$rootScope', '$state', 'User', function($auth, $rootScope, $state, User){
     var vm = this;
     vm.checkAuthStatus = function(){
       console.log('The user is?', $auth.validateUser());
@@ -18,7 +18,9 @@
              ],
       login: [
                [
-                 ['Clients & Vendors', 'orgs.index'],
+                 ['Dashboard', 'a.dashboard'],
+                 ['Clients', 'a.clients.index'],
+                 ['Vendors', 'a.vendors.index'],
                  ['Projects', 'projects.index'],
                  ['Invoices', 'invoices.index']
                ],
@@ -50,12 +52,14 @@
       console.log('auth:validation-success event');
       vm.menu = vm.menuItems.login;
       vm.showSignOut = true;
+      User.currentAccount = user;
     });
 
     $rootScope.$on('auth:login-success', function(e, user){
       console.log('auth:login-success event');
       vm.menu = vm.menuItems.login;
       vm.showSignOut = true;
+      User.currentAccount = user;
     });
   }]);
 })();

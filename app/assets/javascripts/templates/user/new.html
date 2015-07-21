@@ -1,0 +1,53 @@
+<md-content class="md-padding">
+    <div layout="row">
+        <md-card>
+            <md-content class="md-padding">
+                <h3 class="md-headline">New User</h3>
+                <form>
+                    <p class="md-subhead">Name</p>
+                    <div layout="row">
+                        <md-input-container flex="50">
+                            <label>First Name</label>
+                            <input type="text" ng-model="vm.newUser.first_name" required="required"/>
+                        </md-input-container>
+                        <md-input-container flex="50">
+                            <label>Last Name</label>
+                            <input type="text" ng-model="vm.newUser.last_name" required="required"/>
+                        </md-input-container>
+                    </div>
+
+                    <p class="md-subhead">Address</p>
+                    <md-input-container>
+                        <label>Street Address</label>
+                        <input type="text" ng-model="vm.newUser.street_address" required="required"/>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Street Address 2</label>
+                        <input type="text" ng-model="vm.newUser.street_address2" required="required"/>
+                    </md-input-container>
+                    <div layout="row">
+                        <md-input-container flex="40">
+                            <label>City</label>
+                            <input type="text" ng-model="vm.newUser.city" required="required"/>
+                        </md-input-container>
+                        <md-input-container flex="20">
+                            <label>State</label>
+                            <input type="text" ng-model="vm.newUser.state" required="required"/>
+                        </md-input-container>
+                        <md-input-container flex="40">
+                            <label>Zip</label>
+                            <input type="text" ng-model="vm.newUser.zip" required="required"/>
+                        </md-input-container>
+                    </div>
+                    <p class="md-subhead">Phone</p>
+                    <md-input-container>
+                        <label>Phone</label>
+                        <input type="text" ng-model="vm.newUser.phone"/>
+                    </md-input-container>
+                    <md-button type="submit" class="md-primary md-hue-2" ng-click="vm.clickSubmitNewUser()">Ok</md-button>
+                </form>
+                {{vm.newUser}}
+            </md-content>
+        </md-card>
+    </div>
+</md-content>

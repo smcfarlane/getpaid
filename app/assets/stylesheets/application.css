@@ -75,3 +75,30 @@ body {
     color: #202020 !important;
     z-index: 3;
 }
+
+.gridList md-grid-tile figure span {
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gridList md-grid-list {
+    margin: 8px; }
+.gridList .gray {
+    background: #f5f5f5; }
+.gridList .green {
+    background: #b9f6ca; }
+.gridList .yellow {
+    background: #ffff8d; }
+.gridList .blue {
+    background: #84ffff; }
+.gridList .purple {
+    background: #b388ff; }
+.gridList .red {
+    background: #ff8a80; }
+.gridList .teal {
+    background: #B2DFDB;
+}
+.gridList md-grid-tile {
+    transition: all 400ms ease-out 50ms; }

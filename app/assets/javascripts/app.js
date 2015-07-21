@@ -16,9 +16,25 @@
   })
   .config(function($authProvider) {
     $authProvider.configure({
-      apiUrl: 'http://localhost:3000'
+      apiUrl: 'http://localhost:3000',
+      tokenValidationPath: '/auth/validate_token',
+      signOutUrl: '/auth/sign_out',
+      confirmationSuccessUrl: window.location.href,
+      emailSignInPath: '/auth/sign_in',
+      storage: 'localStorage',
+      tokenFormat: {
+        "access-token": "{{ token }}",
+        "token-type": "Bearer",
+        "client": "{{ clientId }}",
+        "expiry": "{{ expiry }}",
+        "uid": "{{ uid }}"
+      }
     });
   })
+  .config(['$httpProvider', function($httpProvider){
+    $httpProvider.interceptors.push('authInterceptor');
+    console.log($httpProvider.interceptors);
+  }])
   .config(function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise("/");
@@ -84,8 +100,32 @@
         controller: 'DashboardCtrl as vm'
       })
 
-      .state('a.clients', {
+      .state('a.user', {
+        url: '/user',
+        templateUrl: 'user/user.html',
+        controller: 'UserCtrl as vm'
+      })
+      .state('a.user.new', {
+        url: '/new',
+        templateUrl: 'user/new.html'
+      })
+      .state('a.user.yourOrg', {
+        url: 'your_org',
+        templateUrl: 'user/your_org.html'
+      })
 
+      .state('a.clients', {
+        url: '/clients',
+        templateUrl: 'clients/clients.html',
+        controller: 'ClientsCtrl as vm'
+      })
+      .state('a.clients.index', {
+        url: '/index',
+        templateUrl: 'clients/index.html'
+      })
+      .state('a.clients.show', {
+        url: '/:clientId/projects',
+        templateUrl: 'clients/show.html'
       })
     });
 })();

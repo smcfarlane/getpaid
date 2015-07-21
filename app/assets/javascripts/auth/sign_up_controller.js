@@ -10,7 +10,6 @@
         $auth.submitRegistration(vm.registrationForm)
           .then(function(resp) {
             console.log('User Sign Up Success', resp);
-            $state.go('a.dashboard');
             vm.signInUser();
             // handle success response
           })
@@ -24,7 +23,7 @@
         $auth.submitLogin({email: vm.registrationForm.email, password: vm.registrationForm.password})
           .then(function(resp) {
             console.log('User Sign In Success', resp);
-            $state.go('a.dashboard');
+            $state.go('a.user.new');
             // handle success response
           })
           .catch(function(resp) {
